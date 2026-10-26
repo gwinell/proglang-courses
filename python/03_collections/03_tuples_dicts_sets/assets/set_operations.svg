@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="330" viewBox="0 0 980 330" role="img" aria-labelledby="title desc">
+<title id="title">Операции над множествами</title><desc id="desc">Объяснение пересечения, объединения и разности на примере кружков шахмат и робототехники.</desc>
+<rect width="980" height="330" rx="20" fill="#fffaf0"/><text x="35" y="48" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#573f18">Участники двух кружков</text>
+<text x="60" y="100" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#314158">Шахматы: Аня, Борис, Вера</text><text x="500" y="100" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#314158">Робототехника: Аня, Вера, Глеб</text>
+<line x1="35" y1="130" x2="945" y2="130" stroke="#e2d4b6" stroke-width="2"/>
+<text x="60" y="180" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#315d42">A &amp; B — оба кружка</text><text x="490" y="180" font-family="Arial,sans-serif" font-size="20" fill="#314158">Аня и Вера</text>
+<text x="60" y="230" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#315d42">A | B — хотя бы один</text><text x="490" y="230" font-family="Arial,sans-serif" font-size="20" fill="#314158">Аня, Борис, Вера, Глеб</text>
+<text x="60" y="280" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#315d42">A - B — только первый</text><text x="490" y="280" font-family="Arial,sans-serif" font-size="20" fill="#314158">Борис</text>
+</svg>

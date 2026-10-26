@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="220" viewBox="0 0 860 220" role="img" aria-labelledby="title desc">
+<title id="title">Индексы кортежа</title><desc id="desc">В кортеже point первый элемент 4 имеет индекс 0, а элемент 7 имеет индекс 1.</desc>
+<rect width="860" height="220" rx="20" fill="#f4f7ff"/><text x="36" y="50" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#19345b">point = (4, 7)</text>
+<text x="250" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#52647e">индекс 0</text><text x="600" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#52647e">индекс 1</text>
+<rect x="120" y="105" width="260" height="75" rx="14" fill="#dce9ff" stroke="#4779c6" stroke-width="3"/><rect x="470" y="105" width="260" height="75" rx="14" fill="#e6f6ea" stroke="#4d9b60" stroke-width="3"/>
+<text x="250" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#19345b">4</text><text x="600" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#19345b">7</text>
+</svg>
