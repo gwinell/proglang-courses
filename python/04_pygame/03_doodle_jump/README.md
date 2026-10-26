@@ -1,390 +1,1819 @@
-# Doodle Jump на Pygame: пошагово от текущего main.py
+# Doodle Jump на Pygame: маленькие шаги и полный код после каждого этапа
 
-Это учебный маршрут от приложенного файла `играGD/main.py` до законченной игры. Идём маленькими изменениями: после каждого этапа запускаем программу, смотрим на результат и только потом продолжаем.
+Руководство начинается с приложенного файла **играGD/main.py**. После объяснения каждого этапа приведён **весь main.py целиком**, включая импорты, классы, цикл и завершение Pygame. Его можно скопировать в рабочий файл и запустить. В блоках полного кода нет пропусков, многоточий и заглушек.
 
-В исходном файле уже есть окно Pygame, классы `Player` и `Platform`, движение, гравитация, прыжок по пробелу, генерация нескольких платформ и проверка приземления. Поэтому мы не переписываем всё сразу, а постепенно улучшаем работающую основу.
+Работай с копией исходного файла. Сначала попробуй внести описанные изменения сам, затем сравни с полной версией ниже. Каждый этап продолжает предыдущий: не нужно смешивать части из разных версий.
 
-## 1. Подготовка проекта
+## 1. Подготовка и первый запуск
 
-Создай отдельную папку, чтобы учебные версии не смешались с другими проектами:
-
-```text
-doodle_jump/
-├── main.py
-└── README.md
-```
-
-Скопируй в неё исходный `main.py`. Если Pygame ещё не установлен, открой терминал в папке проекта и выполни:
+Создай отдельную папку, скопируй туда исходный main.py и открой терминал в этой папке. Установи Pygame:
 
 ```bash
 python -m pip install pygame
 ```
 
-Проверь, что запускается исходная версия:
+Запускай после каждого изменения:
 
 ```bash
 python main.py
 ```
 
-Закрой окно крестиком. На этом этапе игра ещё очень простая — это нормально. После каждого следующего этапа снова запускай эту же команду. Если программа перестала запускаться, исправь ошибку до перехода дальше.
+Если на твоём компьютере команда Python называется python3, используй python3 в обеих командах. Стрелки управляют движением, пробел запускает прыжок. После каждой успешной проверки сохраняй отдельную контрольную копию или коммит.
 
-Полезный ритм работы:
+## 2. Исходная версия: разбираемся в устройстве программы
 
-1. Сделай одно небольшое изменение.
-2. Сохрани файл.
-3. Запусти `python main.py`.
-4. Проверь перечисленный в этапе результат.
-5. Если всё работает, сохрани контрольную точку в Git или сделай резервную копию файла.
+Player хранит положение персонажа и скорость падения. Platform хранит положение платформы. rect содержит целочисленные координаты для Pygame, а player.y — дробную координату: маленькие изменения гравитации не теряются из-за округления.
 
-## 2. Что уже происходит в исходном файле
+В экранных координатах y растёт вниз. Поэтому положительная velocity_y означает падение, отрицательная — подъём. GRAVITY каждый кадр увеличивает скорость. Прыжок присваивает ей отрицательное значение.
 
-Перед изменениями найди в коде эти части:
+В исходной версии события клавиатуры обрабатываются перед движением. Затем вычисляются гравитация и столкновения, после чего рисуется кадр. clock.tick(60) ограничивает частоту примерно 60 кадрами в секунду; все числа скоростей в этом уроке рассчитаны на такой цикл.
 
-- константы `WIDTH`, `HEIGHT`, `PLAYER_SPEED`, `GRAVITY`, `JUMP_POWER`;
-- `Player`: хранит прямоугольник персонажа, скорость падения и состояние `on_ground`;
-- `Platform`: хранит и рисует прямоугольник платформы;
-- список `platforms`: в нём находятся все платформы;
-- основной цикл `while running`: получает события, обновляет объекты и рисует кадр;
-- проверка `horizontal` и `vertical`: определяет, приземлился ли персонаж сверху на платформу.
-
-Сначала поэкспериментируй только с константами. Например, измени `PLAYER_SPEED` с `5` на `7`, запусти игру и сравни движение. Верни удобное значение перед следующими этапами.
-
-## 3. Надёжное состояние прыжка
-
-Сейчас `on_ground` становится `True` при приземлении. Нужно также сбрасывать его, когда персонаж начинает падать или отходит от платформы, иначе иногда можно прыгнуть в воздухе.
-
-В основном цикле найди участок перед вызовом:
+### Полный исходный main.py
 
 ```python
-player.gravity()
-```
+import pygame 
+import random 
 
-Добавь строку сброса непосредственно перед гравитацией:
+pygame.init()
 
-```python
-player.on_ground = False
-player.gravity()
-```
+WIDTH = 400
+HEIGHT = 800 
 
-Проверка приземления ниже снова установит `on_ground = True`, если персонаж действительно пересёк платформу сверху. Нажатие пробела обрабатывается до этой части цикла, поэтому `player.jump()` успевает проверить прежнее состояние и запускает прыжок с опоры.
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -10
+GROUND_Y = HEIGHT - HEIGHT // 4
 
-**Запусти игру:** пробел должен запускать прыжок только с пола или платформы. Во время полёта повторное нажатие не должно давать второй прыжок.
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
 
-> Если прыжок не срабатывает с первой попытки, проверь порядок: обработка `KEYDOWN` должна быть до обновления гравитации и проверки столкновений в кадре.
+clock = pygame.time.Clock()
 
-## 4. Не пропускать платформу при быстром падении
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
 
-Исходный код уже использует `previous_bottom`: запоминает нижнюю границу персонажа до гравитации и проверяет, пересёк ли он верх платформы за этот кадр. Это важнее, чем просто проверить пересечение прямоугольников после движения.
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
 
-Оставь проверку в таком порядке:
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
 
-```python
-previous_bottom = player.rect.bottom
-player.gravity()
+        if self.rect.left < 0:
+            self.rect.left = 0
 
-if player.velocity_y >= 0:
-    for platform in platforms:
-        horizontal = (
-            player.rect.right > platform.rect.left
-            and player.rect.left < platform.rect.right
-        )
-        vertical = (
-            previous_bottom <= platform.rect.top
-            and player.rect.bottom >= platform.rect.top
-        )
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
 
-        if horizontal and vertical:
-            player.rect.bottom = platform.rect.top
-            player.y = float(player.rect.y)
-            player.velocity_y = 0
-            player.on_ground = True
-            break
-```
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
 
-Здесь `velocity_y >= 0` означает, что персонаж падает. Условие `previous_bottom <= platform.rect.top` не даёт засчитать столкновение снизу или когда персонаж уже был ниже платформы.
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
 
-**Запусти игру:** несколько раз приземлись на платформы. Персонаж должен останавливаться верхней частью платформы и не проваливаться сквозь неё при падении.
+        self.rect.y = round(self.y)
 
-### Если платформы должны быть твёрдыми снизу тоже
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
 
-Для классического Doodle Jump обычно используют платформы, сквозь которые можно подпрыгнуть снизу. Если в этой версии платформы должны останавливать персонажа и при ударе снизу, добавь обработку подъёма после цикла приземления. Перед `player.gravity()` запомни ещё и верхнюю границу:
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
 
-```python
-previous_top = player.rect.top
-```
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
 
-Затем после обработки приземления добавь:
-
-```python
-if player.velocity_y < 0:
-    for platform in platforms:
-        horizontal = (
-            player.rect.right > platform.rect.left
-            and player.rect.left < platform.rect.right
-        )
-        hit_underside = (
-            horizontal
-            and previous_top >= platform.rect.bottom
-            and player.rect.top <= platform.rect.bottom
-        )
-        if hit_underside:
-            player.rect.top = platform.rect.bottom
-            player.y = float(player.rect.y)
-            player.velocity_y = 0
-            break
-```
-
-Так проверяется пересечение платформы снизу во время подъёма. Не вставляй этот блок внутрь условия `if player.velocity_y >= 0`: он нужен именно для движения вверх.
-
-## 5. Сделать генерацию платформ предсказуемой
-
-В исходном коде новые платформы создаются один раз в цикле `for i in range(6)`. Их координата `x` меняется случайно, но вертикальные интервалы и расстояния могут получиться неудобными.
-
-Для начала замени диапазон высоты:
-
-```python
-y -= random.randint(65, 95)
-```
-
-на:
-
-```python
-y -= random.randint(85, 115)
-```
-
-Оставь ограничение координаты `x` в пределах окна. Затем замени случайное изменение `x`:
-
-```python
-x += random.randint(-80, 80)
-```
-
-на изменение относительно предыдущей платформы с ограниченным шагом:
-
-```python
-step = random.choice((-1, 1)) * random.randint(65, 145)
-x += step
-x = max(0, min(WIDTH - 90, x))
-```
-
-Здесь `90` — ширина платформы из `Platform.__init__`. Выражение `max(0, min(...))` удерживает левый край внутри окна.
-
-**Запусти игру:** начальные платформы должны быть разнесены по высоте и немного менять сторону. Если прыжок кажется недостижимым, уменьшай верхние границы интервала и горизонтального смещения понемногу, меняя только один диапазон за раз.
-
-### Почему смещение считается относительно предыдущей платформы
-
-У каждой платформы следующий шаг зависит от координаты предыдущей. Если каждый раз выбирать совершенно случайную точку окна, соседние платформы могут оказаться слишком далеко друг от друга. Привязка к прошлой позиции задаёт маршрут.
-
-Высота прыжка зависит от `JUMP_POWER` и `GRAVITY`. Уменьшение промежутка по высоте делает маршрут легче. Уменьшение максимального `step` облегчает попадание по горизонтали.
-
-## 6. Добавить камеру, которая поднимается вместе с игроком
-
-Пока персонаж поднимается к верхней границе окна и вскоре перестаёт помещаться на экране. Добавь константу рядом с остальными:
-
-```python
-CAMERA_LINE = HEIGHT * 0.4
-```
-
-Перед основным циклом добавь счётчик:
-
-```python
-score = 0
-```
-
-Внутри основного цикла, после проверки столкновения с платформами и до отрисовки, добавь:
-
-```python
-if player.rect.top < CAMERA_LINE and player.velocity_y < 0:
-    shift = round(CAMERA_LINE - player.rect.top)
-    player.rect.y += shift
-    player.y += shift
-
-    for platform in platforms:
-        platform.rect.y += shift
-
-    score += shift
-```
-
-Когда персонаж поднимается выше условной линии, мы сдвигаем его и платформы вниз на одинаковое расстояние. Так создаётся впечатление движения камеры вверх. Поле `player.y` тоже нужно сдвинуть, потому что `gravity()` использует его для вычисления координаты персонажа.
-
-**Запусти игру:** персонаж должен оставаться примерно в верхней части окна, а платформы — перемещаться вниз, когда он поднимается.
-
-## 7. Подбрасывать новые платформы и удалять старые
-
-После прокрутки старые платформы уходят вниз, а сверху должны появляться новые. Пока оставь начальную генерацию как есть. После прокрутки камеры добавь удаление платформ, которые уже ниже окна:
-
-```python
+running = True
+player = Player(180, GROUND_Y - 35)
 platforms = [
-    platform for platform in platforms
-    if platform.rect.top < HEIGHT + 20
+    Platform(151, GROUND_Y),
 ]
+x = 151
+y = GROUND_Y
+
+for i in range(6):
+    x += random.randint(-80, 80)
+    y -= random.randint(65, 95)
+
+    if x < 0:
+        x = 0
+
+    if x > WIDTH - 90:
+        x = WIDTH - 90
+    
+    platform = Platform(x, y)
+    platforms.append(platform)
+
+while running:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.jump()
+
+    keys = pygame.key.get_pressed()
+    player.move(keys)
+
+    previous_bottom = player.rect.bottom
+    player.gravity()
+
+    if player.velocity_y >= 0:
+        for platform in platforms:
+
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+
+            vertical = (
+                previous_bottom <= platform.rect.top
+                and player.rect.bottom >= platform.rect.top
+            )
+
+            if horizontal and vertical:
+                player.rect.bottom = platform.rect.top
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                player.on_ground = True
+                break
+
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    pygame.display.flip()
+
+pygame.quit()
 ```
 
-Затем добавь генерацию над самой высокой платформой:
+Запусти исходную версию и убедись, что открывается окно и работают стрелки и пробел. Дальше изменяем по одному механизму.
+
+## 3. Исправляем прыжок в воздухе
+
+В исходном файле поле on_ground становится True при приземлении, но после схода с края иногда остаётся True. Тогда пробел разрешает ещё один прыжок, хотя под ногами уже ничего нет.
+
+Добавляем сброс player.on_ground = False непосредственно перед player.gravity(). После этого только найденное столкновение с верхней поверхностью платформы возвращает True. Получается понятное правило: каждый кадр заново подтверждает наличие опоры.
+
+Порядок действий важен. Сначала обрабатываем событие пробела: метод jump() видит результат прошлого кадра и, если опора была, задаёт отрицательную скорость. Затем сбрасываем флаг и рассчитываем новое положение. При приземлении обнуляем скорость и синхронизируем player.y с player.rect.y. Без этой синхронизации следующий вызов gravity() мог бы вернуть персонажа внутрь платформы.
+
+Остальные части исходной программы на этом этапе оставляем по смыслу прежними.
+
+### Полный main.py после этапа 3
 
 ```python
-top_platform = min(platforms, key=lambda platform: platform.rect.top)
+import pygame 
+import random 
 
-while top_platform.rect.top > -80:
-    new_y = top_platform.rect.top - random.randint(85, 115)
-    new_x = top_platform.rect.x + random.choice((-1, 1)) * random.randint(65, 145)
-    new_x = max(0, min(WIDTH - 90, new_x))
+pygame.init()
 
-    top_platform = Platform(new_x, new_y)
-    platforms.append(top_platform)
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -10
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
+
+clock = pygame.time.Clock()
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
+running = True
+player = Player(180, GROUND_Y - 35)
+platforms = [
+    Platform(151, GROUND_Y),
+]
+x = 151
+y = GROUND_Y
+
+for i in range(6):
+    x += random.randint(-80, 80)
+    y -= random.randint(65, 95)
+
+    if x < 0:
+        x = 0
+
+    if x > WIDTH - 90:
+        x = WIDTH - 90
+    
+    platform = Platform(x, y)
+    platforms.append(platform)
+
+while running:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.jump()
+
+    keys = pygame.key.get_pressed()
+    player.move(keys)
+
+    previous_bottom = player.rect.bottom
+    player.on_ground = False
+    player.gravity()
+
+    if player.velocity_y >= 0:
+        for platform in platforms:
+
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+
+            vertical = (
+                previous_bottom <= platform.rect.top
+                and player.rect.bottom >= platform.rect.top
+            )
+
+            if horizontal and vertical:
+                player.rect.bottom = platform.rect.top
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                player.on_ground = True
+                break
+
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    pygame.display.flip()
+
+pygame.quit()
 ```
 
-Этот блок должен выполняться каждый кадр после удаления нижних платформ. Условие `while` дополняет маршрут, пока его верхняя точка не окажется выше окна. Если список платформ когда-нибудь может стать пустым, добавь защиту перед `min`:
+### Запуск и проверка
+
+Выполни **python main.py**. Попрыгай с платформы и нажми пробел ещё раз в полёте. Второго прыжка быть не должно. Затем сойди с края: прыжок после начала падения также не должен срабатывать.
+
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
+
+## 4. Добавляем столкновение с нижней стороной платформы
+
+Проверка из исходного файла уже защищает от проваливания при падении. Она сравнивает нижнюю границу до перемещения — previous_bottom — с границей после перемещения. Поэтому персонаж может пересечь тонкую платформу за один кадр, и мы всё равно обнаружим это.
+
+Теперь запоминаем ещё previous_top. Пока velocity_y отрицательна, персонаж движется вверх. Если его верх был ниже нижней стороны платформы, а после движения пересёк её, значит он ударился головой. Ставим верх персонажа на нижнюю сторону платформы и обнуляем скорость подъёма.
+
+Условия horizontal и hit_underside нужны одновременно: одинаковая высота сама по себе ещё не означает столкновение. По горизонтали прямоугольники тоже должны пересекаться.
+
+Здесь платформы останавливают вертикальное движение и сверху, и снизу. В этой учебной версии боковые грани пока не разрешаются как отдельные столкновения.
+
+### Полный main.py после этапа 4
 
 ```python
-if platforms:
-    top_platform = min(platforms, key=lambda platform: platform.rect.top)
+import pygame 
+import random 
+
+pygame.init()
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -10
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
+
+clock = pygame.time.Clock()
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
+running = True
+player = Player(180, GROUND_Y - 35)
+platforms = [
+    Platform(151, GROUND_Y),
+]
+x = 151
+y = GROUND_Y
+
+for i in range(6):
+    x += random.randint(-80, 80)
+    y -= random.randint(65, 95)
+
+    if x < 0:
+        x = 0
+
+    if x > WIDTH - 90:
+        x = WIDTH - 90
+    
+    platform = Platform(x, y)
+    platforms.append(platform)
+
+while running:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.jump()
+
+    keys = pygame.key.get_pressed()
+    player.move(keys)
+
+    previous_bottom = player.rect.bottom
+    previous_top = player.rect.top
+    player.on_ground = False
+    player.gravity()
+
+    if player.velocity_y >= 0:
+        for platform in platforms:
+
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+
+            vertical = (
+                previous_bottom <= platform.rect.top
+                and player.rect.bottom >= platform.rect.top
+            )
+
+            if horizontal and vertical:
+                player.rect.bottom = platform.rect.top
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                player.on_ground = True
+                break
+
+    if player.velocity_y < 0:
+        for platform in platforms:
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+            hit_underside = (
+                previous_top >= platform.rect.bottom
+                and player.rect.top <= platform.rect.bottom
+            )
+            if horizontal and hit_underside:
+                player.rect.top = platform.rect.bottom
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                break
+
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    pygame.display.flip()
+
+pygame.quit()
 ```
 
-**Запусти игру:** поднимайся выше и проверь, что сверху появляются новые платформы, а снизу старые исчезают. Если платформа уходит за край и не достижима, уменьши максимальный шаг по высоте или по `x`.
+### Запуск и проверка
 
-## 8. Показать счёт
+Выполни **python main.py**. Приземлись на платформу сверху, а затем подпрыгни под другой платформой. При ударе снизу подъём должен прекратиться; при приземлении сверху персонаж должен остаться стоять.
 
-Счёт уже накапливается в переменной `score`. Создай шрифт один раз до основного цикла, рядом с созданием окна:
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
+
+## 5. Улучшаем начальную генерацию маршрута
+
+Простое прибавление случайного числа к x и последующее прижатие к краю окна создаёт плохой результат: несколько разных случайных чисел превращаются в одну и ту же крайнюю координату. Платформы собираются в вертикальный столбик.
+
+Выносим создание следующей платформы в add_platform(). Функция находит верхнюю платформу и составляет список допустимых положений: внутри окна и на расстоянии от 75 до 145 пикселей по горизонтали. Затем предпочитает сторону, противоположную предыдущему шагу. Поле last_direction запоминает направление последнего смещения. При первом вызове оно равно нулю, поэтому начальная сторона свободна.
+
+Мы выбираем случайную координату из уже допустимых мест. Прижимать получившуюся координату к краю не требуется. Каждая новая платформа становится продолжением предыдущей.
+
+Вертикальный шаг меняется на 90–115 пикселей, а JUMP_POWER — на -13. Это согласованные изменения: с прежней скоростью -10 при GRAVITY = 0.5 максимальный подъём составляет примерно 100 пикселей, поэтому шаг 115 был бы слишком большим. При -13 подъём примерно 169 пикселей, что оставляет запас для прыжка.
+
+В начале вызываем add_platform() шесть раз. На этом этапе маршрут всё ещё конечный: бесконечное продолжение появится через два шага.
+
+### Полный main.py после этапа 5
 
 ```python
+import pygame 
+import random 
+
+pygame.init()
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
+
+clock = pygame.time.Clock()
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
+running = True
+player = Player(180, GROUND_Y - 35)
+platforms = [
+    Platform(151, GROUND_Y),
+]
+last_direction = 0
+
+def add_platform():
+    global last_direction
+    top = min(platforms, key=lambda item: item.rect.top)
+    candidates = [
+        x for x in range(8, WIDTH - 90 - 8 + 1)
+        if 75 <= abs(x - top.rect.x) <= 145
+    ]
+    preferred = [
+        x for x in candidates
+        if (x - top.rect.x) * last_direction < 0
+    ]
+    if preferred:
+        candidates = preferred
+    x = random.choice(candidates)
+    last_direction = 1 if x > top.rect.x else -1
+    y = top.rect.top - random.randint(90, 115)
+    platforms.append(Platform(x, y))
+
+
+for i in range(6):
+    add_platform()
+
+while running:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.jump()
+
+    keys = pygame.key.get_pressed()
+    player.move(keys)
+
+    previous_bottom = player.rect.bottom
+    previous_top = player.rect.top
+    player.on_ground = False
+    player.gravity()
+
+    if player.velocity_y >= 0:
+        for platform in platforms:
+
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+
+            vertical = (
+                previous_bottom <= platform.rect.top
+                and player.rect.bottom >= platform.rect.top
+            )
+
+            if horizontal and vertical:
+                player.rect.bottom = platform.rect.top
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                player.on_ground = True
+                break
+
+    if player.velocity_y < 0:
+        for platform in platforms:
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+            hit_underside = (
+                previous_top >= platform.rect.bottom
+                and player.rect.top <= platform.rect.bottom
+            )
+            if horizontal and hit_underside:
+                player.rect.top = platform.rect.bottom
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                break
+
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    pygame.display.flip()
+
+pygame.quit()
+```
+
+### Запуск и проверка
+
+Выполни **python main.py**. Запусти программу несколько раз. Соседние платформы должны заметно смещаться по горизонтали и оставаться внутри окна. Попробуй пройти начальную цепочку; до обычных платформ должно получаться допрыгнуть.
+
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
+
+## 6. Поднимаем камеру вслед за персонажем
+
+Если постоянно уменьшать координату y персонажа, он рано или поздно уйдёт за верх окна. Для камеры выбираем линию HEIGHT * 0.4 — примерно 40% высоты окна от верхнего края.
+
+Когда персонаж поднимается выше линии, вычисляем shift: насколько он её пересёк. На это расстояние сдвигаем вниз и персонажа, и все платформы. Их взаимное положение сохраняется, но на экране становится видно продолжение пути сверху.
+
+Изменяем обе координаты персонажа: rect.y используется для рисования и столкновений, а y хранит дробную координату для физики. Если передвинуть только rect, следующий кадр вернёт персонажа к прежней дробной координате.
+
+Камера движется только во время подъёма — velocity_y < 0. Поэтому при падении она не опускается вслед за персонажем.
+
+### Полный main.py после этапа 6
+
+```python
+import pygame 
+import random 
+
+pygame.init()
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
+
+clock = pygame.time.Clock()
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
+running = True
+player = Player(180, GROUND_Y - 35)
+platforms = [
+    Platform(151, GROUND_Y),
+]
+last_direction = 0
+
+def add_platform():
+    global last_direction
+    top = min(platforms, key=lambda item: item.rect.top)
+    candidates = [
+        x for x in range(8, WIDTH - 90 - 8 + 1)
+        if 75 <= abs(x - top.rect.x) <= 145
+    ]
+    preferred = [
+        x for x in candidates
+        if (x - top.rect.x) * last_direction < 0
+    ]
+    if preferred:
+        candidates = preferred
+    x = random.choice(candidates)
+    last_direction = 1 if x > top.rect.x else -1
+    y = top.rect.top - random.randint(90, 115)
+    platforms.append(Platform(x, y))
+
+
+for i in range(6):
+    add_platform()
+
+while running:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.jump()
+
+    keys = pygame.key.get_pressed()
+    player.move(keys)
+
+    previous_bottom = player.rect.bottom
+    previous_top = player.rect.top
+    player.on_ground = False
+    player.gravity()
+
+    if player.velocity_y >= 0:
+        for platform in platforms:
+
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+
+            vertical = (
+                previous_bottom <= platform.rect.top
+                and player.rect.bottom >= platform.rect.top
+            )
+
+            if horizontal and vertical:
+                player.rect.bottom = platform.rect.top
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                player.on_ground = True
+                break
+
+    if player.velocity_y < 0:
+        for platform in platforms:
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+            hit_underside = (
+                previous_top >= platform.rect.bottom
+                and player.rect.top <= platform.rect.bottom
+            )
+            if horizontal and hit_underside:
+                player.rect.top = platform.rect.bottom
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                break
+
+    if player.rect.top < HEIGHT * 0.4 and player.velocity_y < 0:
+        shift = round(HEIGHT * 0.4 - player.rect.top)
+        player.rect.y += shift
+        player.y += shift
+        for platform in platforms:
+            platform.rect.y += shift
+
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    pygame.display.flip()
+
+pygame.quit()
+```
+
+### Запуск и проверка
+
+Выполни **python main.py**. Поднимись выше примерно трети окна. Персонаж должен остаться около линии камеры, а платформы — сдвигаться вниз. При падении камера не должна ехать вниз.
+
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
+
+## 7. Продолжаем маршрут сверху и убираем старые платформы
+
+После прокрутки некоторые платформы оказываются ниже окна. Списковое включение оставляет только те, у которых верхняя граница ещё выше HEIGHT + 20. Запас в 20 пикселей позволяет объекту полностью уйти из видимой области.
+
+Затем проверяем самую высокую платформу. Пока её координата выше не дошла до -80, вызываем ту же add_platform(), которую уже использовали для начального маршрута. Отрицательная координата означает, что платформа находится немного над окном и появится при следующей прокрутке.
+
+Здесь нужен while, потому что после большого сдвига за один кадр может понадобиться несколько платформ. Проверка platforms перед min() не даёт искать минимум в пустом списке.
+
+Так у начальной и последующей генерации остаются одинаковые правила. Если позже меняем интервалы или ширину, не нужно исправлять два независимых генератора.
+
+### Полный main.py после этапа 7
+
+```python
+import pygame 
+import random 
+
+pygame.init()
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
+
+clock = pygame.time.Clock()
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
+running = True
+player = Player(180, GROUND_Y - 35)
+platforms = [
+    Platform(151, GROUND_Y),
+]
+last_direction = 0
+
+def add_platform():
+    global last_direction
+    top = min(platforms, key=lambda item: item.rect.top)
+    candidates = [
+        x for x in range(8, WIDTH - 90 - 8 + 1)
+        if 75 <= abs(x - top.rect.x) <= 145
+    ]
+    preferred = [
+        x for x in candidates
+        if (x - top.rect.x) * last_direction < 0
+    ]
+    if preferred:
+        candidates = preferred
+    x = random.choice(candidates)
+    last_direction = 1 if x > top.rect.x else -1
+    y = top.rect.top - random.randint(90, 115)
+    platforms.append(Platform(x, y))
+
+
+for i in range(6):
+    add_platform()
+
+while running:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.jump()
+
+    keys = pygame.key.get_pressed()
+    player.move(keys)
+
+    previous_bottom = player.rect.bottom
+    previous_top = player.rect.top
+    player.on_ground = False
+    player.gravity()
+
+    if player.velocity_y >= 0:
+        for platform in platforms:
+
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+
+            vertical = (
+                previous_bottom <= platform.rect.top
+                and player.rect.bottom >= platform.rect.top
+            )
+
+            if horizontal and vertical:
+                player.rect.bottom = platform.rect.top
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                player.on_ground = True
+                break
+
+    if player.velocity_y < 0:
+        for platform in platforms:
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+            hit_underside = (
+                previous_top >= platform.rect.bottom
+                and player.rect.top <= platform.rect.bottom
+            )
+            if horizontal and hit_underside:
+                player.rect.top = platform.rect.bottom
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                break
+
+    if player.rect.top < HEIGHT * 0.4 and player.velocity_y < 0:
+        shift = round(HEIGHT * 0.4 - player.rect.top)
+        player.rect.y += shift
+        player.y += shift
+        for platform in platforms:
+            platform.rect.y += shift
+
+    platforms = [
+        platform for platform in platforms
+        if platform.rect.top < HEIGHT + 20
+    ]
+    while platforms and min(p.rect.top for p in platforms) > -80:
+        add_platform()
+
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    pygame.display.flip()
+
+pygame.quit()
+```
+
+### Запуск и проверка
+
+Выполни **python main.py**. Поднимайся дальше начальных шести платформ. Сверху должны появляться новые. Пока здесь ещё нет экрана проигрыша: если упал за нижний край, закрой окно и запусти заново.
+
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
+
+## 8. Показываем счёт за подъём
+
+Создаём font один раз перед циклом. Создавать новый шрифт 60 раз в секунду не нужно: меняется только нарисованный текст.
+
+В тот же момент, когда камера сдвигает мир, прибавляем shift к score. Так очки означают достигнутую высоту. Движение влево и вправо или прыжки ниже уже достигнутой линии не увеличивают счёт.
+
+Метод font.render() создаёт изображение с текстом. screen.blit() помещает его в окно. Рисуем счёт после платформ и персонажа, чтобы они не закрывали надпись. Выражение score // 10 переводит пиксели высоты в более удобное небольшое число.
+
+### Полный main.py после этапа 8
+
+```python
+import pygame 
+import random 
+
+pygame.init()
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
+
+clock = pygame.time.Clock()
 font = pygame.font.Font(None, 32)
+score = 0
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
+running = True
+player = Player(180, GROUND_Y - 35)
+platforms = [
+    Platform(151, GROUND_Y),
+]
+last_direction = 0
+
+def add_platform():
+    global last_direction
+    top = min(platforms, key=lambda item: item.rect.top)
+    candidates = [
+        x for x in range(8, WIDTH - 90 - 8 + 1)
+        if 75 <= abs(x - top.rect.x) <= 145
+    ]
+    preferred = [
+        x for x in candidates
+        if (x - top.rect.x) * last_direction < 0
+    ]
+    if preferred:
+        candidates = preferred
+    x = random.choice(candidates)
+    last_direction = 1 if x > top.rect.x else -1
+    y = top.rect.top - random.randint(90, 115)
+    platforms.append(Platform(x, y))
+
+
+for i in range(6):
+    add_platform()
+
+while running:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.jump()
+
+    keys = pygame.key.get_pressed()
+    player.move(keys)
+
+    previous_bottom = player.rect.bottom
+    previous_top = player.rect.top
+    player.on_ground = False
+    player.gravity()
+
+    if player.velocity_y >= 0:
+        for platform in platforms:
+
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+
+            vertical = (
+                previous_bottom <= platform.rect.top
+                and player.rect.bottom >= platform.rect.top
+            )
+
+            if horizontal and vertical:
+                player.rect.bottom = platform.rect.top
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                player.on_ground = True
+                break
+
+    if player.velocity_y < 0:
+        for platform in platforms:
+            horizontal = (
+                player.rect.right > platform.rect.left
+                and player.rect.left < platform.rect.right
+            )
+            hit_underside = (
+                previous_top >= platform.rect.bottom
+                and player.rect.top <= platform.rect.bottom
+            )
+            if horizontal and hit_underside:
+                player.rect.top = platform.rect.bottom
+                player.y = float(player.rect.y)
+                player.velocity_y = 0
+                break
+
+    if player.rect.top < HEIGHT * 0.4 and player.velocity_y < 0:
+        shift = round(HEIGHT * 0.4 - player.rect.top)
+        player.rect.y += shift
+        player.y += shift
+        score += shift
+        for platform in platforms:
+            platform.rect.y += shift
+
+    platforms = [
+        platform for platform in platforms
+        if platform.rect.top < HEIGHT + 20
+    ]
+    while platforms and min(p.rect.top for p in platforms) > -80:
+        add_platform()
+
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    score_text = font.render(f"Счёт: {score // 10}", True, "black")
+    screen.blit(score_text, (12, 12))
+    pygame.display.flip()
+
+pygame.quit()
 ```
 
-После `screen.fill("white")` и отрисовки платформ и игрока, но перед `pygame.display.flip()`, добавь:
+### Запуск и проверка
+
+Выполни **python main.py**. Проверь, что счёт виден в левом верхнем углу. Он должен расти при прокрутке вверх, а при стоянии и обычном перемещении оставаться прежним.
+
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
+
+## 9. Добавляем проигрыш и перезапуск
+
+Поле game_over хранит состояние игры. Если верх персонажа оказался ниже HEIGHT, он полностью упал за экран, и мы устанавливаем game_over = True.
+
+Весь расчёт мира помещаем под if not game_over. События окна и отрисовку продолжаем выполнять: иначе окно перестало бы нормально закрываться, а сообщение о проигрыше не появилось бы.
+
+Функция reset_game() создаёт нового игрока, начальную платформу и новый маршрут, обнуляет счёт и направление генерации. Её вызываем и при старте, и после проигрыша. Это один общий способ начать игру.
+
+На пробел теперь реагируем двумя способами: при проигрыше вызываем reset_game(), во время игры — player.jump(). Поэтому не возникает одновременного перезапуска и прыжка одним событием.
+
+### Полный main.py после этапа 9
 
 ```python
-score_text = font.render(f"Счёт: {score // 10}", True, "black")
-screen.blit(score_text, (12, 12))
-```
+import pygame 
+import random 
 
-Деление на 10 замедляет рост числа, потому что `score` хранит пиксели прокрутки, а не количество прыжков.
+pygame.init()
 
-**Запусти игру:** счёт должен расти только по мере продвижения камеры вверх.
+WIDTH = 400
+HEIGHT = 800 
 
-## 9. Закончить игру при падении и добавить перезапуск
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
 
-До основной петли добавь:
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
 
-```python
-game_over = False
-```
+clock = pygame.time.Clock()
+font = pygame.font.Font(None, 32)
+big_font = pygame.font.Font(None, 44)
+score = 0
 
-Когда игрок опустился ниже окна, останови игровой процесс:
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
 
-```python
-if player.rect.top > HEIGHT:
-    game_over = True
-```
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
 
-Пока `game_over` равно `True`, не обновляй персонажа и платформы. События окна продолжай обрабатывать, чтобы крестик закрывал игру. В обработке `KEYDOWN` добавь перезапуск по пробелу:
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
 
-```python
-if event.key == pygame.K_SPACE and game_over:
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
+running = True
+
+def add_platform():
+    global last_direction
+    top = min(platforms, key=lambda item: item.rect.top)
+    candidates = [
+        x for x in range(8, WIDTH - 90 - 8 + 1)
+        if 75 <= abs(x - top.rect.x) <= 145
+    ]
+    preferred = [
+        x for x in candidates
+        if (x - top.rect.x) * last_direction < 0
+    ]
+    if preferred:
+        candidates = preferred
+    x = random.choice(candidates)
+    last_direction = 1 if x > top.rect.x else -1
+    y = top.rect.top - random.randint(90, 115)
+    platforms.append(Platform(x, y))
+
+
+def reset_game():
+    global player, platforms, score, game_over, last_direction
     player = Player(180, GROUND_Y - 35)
     platforms = [Platform(151, GROUND_Y)]
     score = 0
     game_over = False
-```
-
-Если хочешь оставить начальный маршрут из нескольких платформ, вынеси повторяющуюся генерацию в функцию `create_platforms()` и вызывай её как при старте, так и при перезапуске.
-
-Для сообщения об окончании создай шрифт, например `big_font = pygame.font.Font(None, 48)`, и в отрисовке при `game_over` покажи текст:
-
-```python
-message = big_font.render("Игра окончена", True, "red")
-screen.blit(message, message.get_rect(center=(WIDTH // 2, HEIGHT // 2)))
-```
-
-**Запусти игру:** упади вниз, проверь сообщение, нажми пробел и проверь, что игра начинается сначала. Не помещай перезапуск ниже основного цикла: он должен быть частью обработки события клавиатуры.
-
-## 10. Разделить обновление и отрисовку
-
-Когда механика заработала, отдели обновление мира от рисования. Создай функции до основного цикла:
-
-```python
-def update_game():
-    global player, platforms, score, game_over
-    # Здесь: движение игрока, гравитация,
-    # столкновения, камера и генерация платформ.
-    pass
+    last_direction = 0
+    for i in range(6):
+        add_platform()
 
 
-def draw_game():
-    screen.fill("white")
+reset_game()
 
-    for platform in platforms:
-        platform.draw()
-
-    player.draw()
-
-    score_text = font.render(f"Счёт: {score // 10}", True, "black")
-    screen.blit(score_text, (12, 12))
-    pygame.display.flip()
-```
-
-Сначала перенеси в `draw_game()` только код отрисовки. Запусти программу. Затем перенеси обновления в `update_game()`, а в основном цикле оставь:
-
-```python
 while running:
     clock.tick(60)
-
     for event in pygame.event.get():
-        # обработка событий
-        ...
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                if game_over:
+                    reset_game()
+                else:
+                    player.jump()
 
     if not game_over:
         keys = pygame.key.get_pressed()
         player.move(keys)
-        update_game()
 
-    draw_game()
+        previous_bottom = player.rect.bottom
+        previous_top = player.rect.top
+        player.on_ground = False
+        player.gravity()
+
+        if player.velocity_y >= 0:
+            for platform in platforms:
+
+                horizontal = (
+                    player.rect.right > platform.rect.left
+                    and player.rect.left < platform.rect.right
+                )
+
+                vertical = (
+                    previous_bottom <= platform.rect.top
+                    and player.rect.bottom >= platform.rect.top
+                )
+
+                if horizontal and vertical:
+                    player.rect.bottom = platform.rect.top
+                    player.y = float(player.rect.y)
+                    player.velocity_y = 0
+                    player.on_ground = True
+                    break
+
+        if player.velocity_y < 0:
+            for platform in platforms:
+                horizontal = (
+                    player.rect.right > platform.rect.left
+                    and player.rect.left < platform.rect.right
+                )
+                hit_underside = (
+                    previous_top >= platform.rect.bottom
+                    and player.rect.top <= platform.rect.bottom
+                )
+                if horizontal and hit_underside:
+                    player.rect.top = platform.rect.bottom
+                    player.y = float(player.rect.y)
+                    player.velocity_y = 0
+                    break
+
+        if player.rect.top < HEIGHT * 0.4 and player.velocity_y < 0:
+            shift = round(HEIGHT * 0.4 - player.rect.top)
+            player.rect.y += shift
+            player.y += shift
+            score += shift
+            for platform in platforms:
+                platform.rect.y += shift
+
+        platforms = [
+            platform for platform in platforms
+            if platform.rect.top < HEIGHT + 20
+        ]
+        while platforms and min(p.rect.top for p in platforms) > -80:
+            add_platform()
+
+        if player.rect.top > HEIGHT:
+            game_over = True
+
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    score_text = font.render(f"Счёт: {score // 10}", True, "black")
+    screen.blit(score_text, (12, 12))
+    if game_over:
+        message = big_font.render("Игра окончена", True, "red")
+        hint = font.render("Пробел — начать заново", True, "black")
+        screen.blit(message, message.get_rect(center=(WIDTH // 2, HEIGHT // 2)))
+        screen.blit(hint, hint.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 45)))
+    pygame.display.flip()
+
+pygame.quit()
 ```
 
-**Запускай после каждого переноса.** Не переносить сразу весь код удобнее: если возникнет ошибка, будет понятно, какая часть её вызвала.
+### Запуск и проверка
 
-## 11. Собрать игру в класс Game
+Выполни **python main.py**. Специально упади. Мир должен остановиться и показать сообщение. Нажми пробел: счёт обнулится, персонаж появится на стартовой платформе. Следующий пробел запустит прыжок.
 
-Классы `Player` и `Platform` уже дают объектный подход. Следующий шаг — добавить класс, который хранит состояние всей игры. Переноси код в него по одному методу.
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
 
-Начни с каркаса. Сделай его запускаемым сразу: пока он только открывает белое окно и закрывается по крестику.
+## 10. Разделяем события, обновление и рисование на функции
+
+Теперь переносим уже работающие части в три функции, сохраняя их порядок: handle_events(), update_game(), draw_game(). Новую механику на этом шаге не добавляем.
+
+handle_events() возвращает False при закрытии окна и True в остальных случаях. Так основной цикл узнаёт, нужно ли продолжать работу.
+
+update_game() изменяет список platforms, число score и флаг game_over. Пока они находятся в глобальной области, функция должна объявить их через global. Без этого присваивание platforms = [...] заставило бы Python считать platforms локальной переменной и возникла бы ошибка. Следующий этап перенесёт это состояние в объект Game.
+
+draw_game() читает состояние и рисует кадр. В самом цикле теперь легко увидеть три главных действия. Это упрощает поиск ошибки: проблемы с клавишами ищем в событиях, с координатами — в обновлении, с изображением — в отрисовке.
+
+### Полный main.py после этапа 10
 
 ```python
+import pygame 
+import random 
+
+pygame.init()
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Doodle Jump")
+
+clock = pygame.time.Clock()
+font = pygame.font.Font(None, 32)
+big_font = pygame.font.Font(None, 44)
+score = 0
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
+running = True
+
+def add_platform():
+    global last_direction
+    top = min(platforms, key=lambda item: item.rect.top)
+    candidates = [
+        x for x in range(8, WIDTH - 90 - 8 + 1)
+        if 75 <= abs(x - top.rect.x) <= 145
+    ]
+    preferred = [
+        x for x in candidates
+        if (x - top.rect.x) * last_direction < 0
+    ]
+    if preferred:
+        candidates = preferred
+    x = random.choice(candidates)
+    last_direction = 1 if x > top.rect.x else -1
+    y = top.rect.top - random.randint(90, 115)
+    platforms.append(Platform(x, y))
+
+
+def reset_game():
+    global player, platforms, score, game_over, last_direction
+    player = Player(180, GROUND_Y - 35)
+    platforms = [Platform(151, GROUND_Y)]
+    score = 0
+    game_over = False
+    last_direction = 0
+    for i in range(6):
+        add_platform()
+
+
+reset_game()
+
+def handle_events():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                if game_over:
+                    reset_game()
+                else:
+                    player.jump()
+    return True
+
+
+def update_game():
+    global platforms, score, game_over
+    if not game_over:
+        keys = pygame.key.get_pressed()
+        player.move(keys)
+
+        previous_bottom = player.rect.bottom
+        previous_top = player.rect.top
+        player.on_ground = False
+        player.gravity()
+
+        if player.velocity_y >= 0:
+            for platform in platforms:
+
+                horizontal = (
+                    player.rect.right > platform.rect.left
+                    and player.rect.left < platform.rect.right
+                )
+
+                vertical = (
+                    previous_bottom <= platform.rect.top
+                    and player.rect.bottom >= platform.rect.top
+                )
+
+                if horizontal and vertical:
+                    player.rect.bottom = platform.rect.top
+                    player.y = float(player.rect.y)
+                    player.velocity_y = 0
+                    player.on_ground = True
+                    break
+
+        if player.velocity_y < 0:
+            for platform in platforms:
+                horizontal = (
+                    player.rect.right > platform.rect.left
+                    and player.rect.left < platform.rect.right
+                )
+                hit_underside = (
+                    previous_top >= platform.rect.bottom
+                    and player.rect.top <= platform.rect.bottom
+                )
+                if horizontal and hit_underside:
+                    player.rect.top = platform.rect.bottom
+                    player.y = float(player.rect.y)
+                    player.velocity_y = 0
+                    break
+
+        if player.rect.top < HEIGHT * 0.4 and player.velocity_y < 0:
+            shift = round(HEIGHT * 0.4 - player.rect.top)
+            player.rect.y += shift
+            player.y += shift
+            score += shift
+            for platform in platforms:
+                platform.rect.y += shift
+
+        platforms = [
+            platform for platform in platforms
+            if platform.rect.top < HEIGHT + 20
+        ]
+        while platforms and min(p.rect.top for p in platforms) > -80:
+            add_platform()
+
+        if player.rect.top > HEIGHT:
+            game_over = True
+
+
+def draw_game():
+    screen.fill("white")
+    for platform in platforms:
+        platform.draw()
+    player.draw()
+    score_text = font.render(f"Счёт: {score // 10}", True, "black")
+    screen.blit(score_text, (12, 12))
+    if game_over:
+        message = big_font.render("Игра окончена", True, "red")
+        hint = font.render("Пробел — начать заново", True, "black")
+        screen.blit(message, message.get_rect(center=(WIDTH // 2, HEIGHT // 2)))
+        screen.blit(hint, hint.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 45)))
+    pygame.display.flip()
+
+
+while running:
+    clock.tick(60)
+    running = handle_events()
+    update_game()
+    draw_game()
+
+pygame.quit()
+```
+
+### Запуск и проверка
+
+Выполни **python main.py**. Проверь движение, прыжок, камеру, счёт и перезапуск. После переноса функций поведение должно совпадать с предыдущей версией.
+
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
+
+## 11. Собираем управление игрой в класс Game
+
+Классы Player и Platform уже описывают отдельные игровые объекты. Класс Game теперь хранит окно, шрифты, игрока, платформы и состояние партии. Вместо глобальной переменной platforms используем self.platforms, вместо score — self.score.
+
+__init__() выполняет подготовку, которая нужна один раз: создаёт окно, часы и шрифты. reset() выполняет подготовку одной партии: создаёт игрока и маршрут. Поэтому при перезапуске не пересоздаём окно и шрифты.
+
+У Player.draw() и Platform.draw() появляется аргумент screen. Теперь они рисуют на переданной поверхности. Это необходимая часть переноса: глобального окна больше нет, оно хранится в self.screen объекта Game.
+
+Метод run() организует цикл. handle_events(), update() и draw() остаются отдельными методами, но получают доступ к состоянию через self. Объявления global больше не нужны.
+
+Условие if __name__ == "__main__" запускает игру только при непосредственном запуске файла. Если позже импортировать Player или Game в другой модуль, окно само не откроется.
+
+### Полный main.py после этапа 11
+
+```python
+import pygame 
+import random 
+
+
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 90, 15)
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, 'grey', self.rect)
+
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 32)
+        self.big_font = pygame.font.Font(None, 44)
         self.reset()
+
+    def add_platform(self):
+        top = min(self.platforms, key=lambda item: item.rect.top)
+        candidates = [
+            x for x in range(8, WIDTH - 90 - 8 + 1)
+            if 75 <= abs(x - top.rect.x) <= 145
+        ]
+        preferred = [
+            x for x in candidates
+            if (x - top.rect.x) * self.last_direction < 0
+        ]
+        if preferred:
+            candidates = preferred
+        x = random.choice(candidates)
+        self.last_direction = 1 if x > top.rect.x else -1
+        y = top.rect.top - random.randint(90, 115)
+        self.platforms.append(Platform(x, y))
 
     def reset(self):
         self.player = Player(180, GROUND_Y - 35)
         self.platforms = [Platform(151, GROUND_Y)]
         self.score = 0
         self.game_over = False
+        self.last_direction = 0
+        for i in range(6):
+            self.add_platform()
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    if self.game_over:
+                        self.reset()
+                    else:
+                        self.player.jump()
+        return True
+
+    def update(self):
+        if not self.game_over:
+            keys = pygame.key.get_pressed()
+            self.player.move(keys)
+
+            previous_bottom = self.player.rect.bottom
+            previous_top = self.player.rect.top
+            self.player.on_ground = False
+            self.player.gravity()
+
+            if self.player.velocity_y >= 0:
+                for platform in self.platforms:
+
+                    horizontal = (
+                        self.player.rect.right > platform.rect.left
+                        and self.player.rect.left < platform.rect.right
+                    )
+
+                    vertical = (
+                        previous_bottom <= platform.rect.top
+                        and self.player.rect.bottom >= platform.rect.top
+                    )
+
+                    if horizontal and vertical:
+                        self.player.rect.bottom = platform.rect.top
+                        self.player.y = float(self.player.rect.y)
+                        self.player.velocity_y = 0
+                        self.player.on_ground = True
+                        break
+
+            if self.player.velocity_y < 0:
+                for platform in self.platforms:
+                    horizontal = (
+                        self.player.rect.right > platform.rect.left
+                        and self.player.rect.left < platform.rect.right
+                    )
+                    hit_underside = (
+                        previous_top >= platform.rect.bottom
+                        and self.player.rect.top <= platform.rect.bottom
+                    )
+                    if horizontal and hit_underside:
+                        self.player.rect.top = platform.rect.bottom
+                        self.player.y = float(self.player.rect.y)
+                        self.player.velocity_y = 0
+                        break
+
+            if self.player.rect.top < HEIGHT * 0.4 and self.player.velocity_y < 0:
+                shift = round(HEIGHT * 0.4 - self.player.rect.top)
+                self.player.rect.y += shift
+                self.player.y += shift
+                self.score += shift
+                for platform in self.platforms:
+                    platform.rect.y += shift
+
+            self.platforms = [
+                platform for platform in self.platforms
+                if platform.rect.top < HEIGHT + 20
+            ]
+            while self.platforms and min(p.rect.top for p in self.platforms) > -80:
+                self.add_platform()
+
+            if self.player.rect.top > HEIGHT:
+                self.game_over = True
+
+    def draw(self):
+        self.screen.fill("white")
+        for platform in self.platforms:
+            platform.draw(self.screen)
+        self.player.draw(self.screen)
+        score_text = self.font.render(f"Счёт: {self.score // 10}", True, "black")
+        self.screen.blit(score_text, (12, 12))
+        if self.game_over:
+            message = self.big_font.render("Игра окончена", True, "red")
+            hint = self.font.render("Пробел — начать заново", True, "black")
+            self.screen.blit(message, message.get_rect(center=(WIDTH // 2, HEIGHT // 2)))
+            self.screen.blit(hint, hint.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 45)))
+        pygame.display.flip()
 
     def run(self):
         running = True
         while running:
             self.clock.tick(60)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            self.screen.fill("white")
-            pygame.display.flip()
-```
+            running = self.handle_events()
+            self.update()
+            self.draw()
 
-Дальше по шагам:
 
-1. Перенеси код создания окна из глобальной области в `Game.__init__`.
-2. Поменяй методы отрисовки на `def draw(self, screen)` у `Player` и `Platform`; внутри рисуй на переданную поверхность. Вызовы станут `self.player.draw(self.screen)` и `platform.draw(self.screen)`. Это нужно, потому что больше нет глобальной переменной `screen`.
-3. Перенеси создание игрока, платформ и счёта в `reset()`.
-4. Перенеси обработку событий в метод `handle_events()`.
-5. Перенеси движение, столкновения, камеру и генерацию в `update()`.
-6. Перенеси рисование кадра в `draw()`.
-7. В `run()` оставь последовательность: события → обновление → отрисовка.
-8. В самом низу файла запускай игру так:
-
-```python
 if __name__ == "__main__":
     pygame.init()
     pygame.display.set_caption("Doodle Jump")
@@ -392,106 +1821,559 @@ if __name__ == "__main__":
     pygame.quit()
 ```
 
-Когда переносишь функцию в метод, добавь `self` первым параметром и замени её переменные состояния на поля объекта. Например, `player` становится `self.player`, а `platforms` — `self.platforms`. Константы вроде `WIDTH` и `GRAVITY` можно оставить глобальными.
+### Запуск и проверка
 
-**Запусти игру после переноса каждого метода.** В конце не должно оставаться второго старого цикла `while running` на уровне файла: игровой цикл находится в `Game.run()`.
+Выполни **python main.py**. Снова пройди тот же набор действий: прыжок, подъём, падение, перезапуск. Код стал объектным, но привычное поведение должно сохраниться.
 
-## 12. Добавить элементы паркура
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
 
-Добавляй особые платформы только после того, как обычный маршрут, камера и перезапуск работают.
+## 12. Добавляем движущиеся и хрупкие платформы
 
-### Движущаяся платформа
+У Platform появляется kind: normal, moving или fragile. Большинство платформ остаются обычными. В add_platform() random.choices() выбирает тип с весами 70, 18 и 12.
 
-В `Platform.__init__` добавь параметры и состояние:
+Синяя движущаяся платформа смещается на два пикселя за кадр и меняет направление у края. update() возвращает фактическое горизонтальное смещение dx. Если игрок стоял на этой платформе до движения, сдвигаем его на тот же dx — так платформа везёт персонажа.
 
-```python
-def __init__(self, x, y, kind="normal"):
-    self.rect = pygame.Rect(x, y, 90, 15)
-    self.kind = kind
-    self.direction = 1
-    self.speed = 2
-```
+Оранжевая хрупкая платформа ломается после прыжка с неё. Это удобно для прыжка по кнопке: игрок может сначала остановиться и выбрать направление, но после отталкивания прежняя опора исчезнет. Метод Game.jump() проверяет опору, помечает её как broken и вызывает обычный Player.jump().
 
-Добавь метод:
+В начале обновления удаляем broken-платформы из списка. Поэтому исчезнувшая платформа больше не рисуется и не участвует в столкновениях. Стартовая платформа создаётся обычной.
+
+Движущиеся платформы добавляют необходимость выбирать момент прыжка. Правила генерации задают начальное положение, затем синие платформы движутся; при прохождении учитывай их текущую позицию.
+
+### Полный main.py после этапа 12
 
 ```python
-def update(self):
-    if self.kind == "moving":
-        self.rect.x += self.direction * self.speed
-        if self.rect.left <= 0 or self.rect.right >= WIDTH:
-            self.direction *= -1
+import pygame 
+import random 
+
+
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, "green", self.rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y, kind="normal"):
+        self.rect = pygame.Rect(x, y, 90, 15)
+        self.kind = kind
+        self.direction = random.choice((-1, 1))
+        self.broken = False
+
+    def update(self):
+        old_x = self.rect.x
+        if self.kind == "moving":
+            self.rect.x += self.direction * 2
+            if self.rect.left <= 0:
+                self.rect.left = 0
+                self.direction = 1
+            elif self.rect.right >= WIDTH:
+                self.rect.right = WIDTH
+                self.direction = -1
+        return self.rect.x - old_x
+
+    def draw(self, screen):
+        colors = {
+            "normal": (100, 110, 115),
+            "moving": (60, 135, 220),
+            "fragile": (225, 155, 55),
+        }
+        pygame.draw.rect(screen, colors[self.kind], self.rect, border_radius=5)
+
+
+class Game:
+    def __init__(self):
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.clock = pygame.time.Clock()
+        self.font = pygame.font.Font(None, 32)
+        self.big_font = pygame.font.Font(None, 44)
+        self.reset()
+
+    def add_platform(self):
+        top = min(self.platforms, key=lambda item: item.rect.top)
+        candidates = [
+            x for x in range(8, WIDTH - 90 - 8 + 1)
+            if 75 <= abs(x - top.rect.x) <= 145
+        ]
+        preferred = [
+            x for x in candidates
+            if (x - top.rect.x) * self.last_direction < 0
+        ]
+        if preferred:
+            candidates = preferred
+        x = random.choice(candidates)
+        self.last_direction = 1 if x > top.rect.x else -1
+        y = top.rect.top - random.randint(90, 115)
+        kind = random.choices(
+            ["normal", "moving", "fragile"], weights=[70, 18, 12], k=1
+        )[0]
+        self.platforms.append(Platform(x, y, kind))
+
+    def reset(self):
+        self.player = Player(180, GROUND_Y - 35)
+        self.platforms = [Platform(151, GROUND_Y)]
+        self.score = 0
+        self.game_over = False
+        self.last_direction = 0
+        for i in range(6):
+            self.add_platform()
+
+    def jump(self):
+        if not self.player.on_ground:
+            return
+        for platform in self.platforms:
+            horizontal = (
+                self.player.rect.right > platform.rect.left
+                and self.player.rect.left < platform.rect.right
+            )
+            if (platform.kind == "fragile" and horizontal
+                    and self.player.rect.bottom == platform.rect.top):
+                platform.broken = True
+        self.player.jump()
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    if self.game_over:
+                        self.reset()
+                    else:
+                        self.jump()
+        return True
+
+    def update(self):
+        if not self.game_over:
+            self.platforms = [p for p in self.platforms if not p.broken]
+            for platform in self.platforms:
+                old_rect = platform.rect.copy()
+                dx = platform.update()
+                if (self.player.on_ground
+                        and self.player.rect.bottom == old_rect.top
+                        and self.player.rect.right > old_rect.left
+                        and self.player.rect.left < old_rect.right):
+                    self.player.rect.x += dx
+            keys = pygame.key.get_pressed()
+            self.player.move(keys)
+
+            previous_bottom = self.player.rect.bottom
+            previous_top = self.player.rect.top
+            self.player.on_ground = False
+            self.player.gravity()
+
+            if self.player.velocity_y >= 0:
+                for platform in self.platforms:
+
+                    horizontal = (
+                        self.player.rect.right > platform.rect.left
+                        and self.player.rect.left < platform.rect.right
+                    )
+
+                    vertical = (
+                        previous_bottom <= platform.rect.top
+                        and self.player.rect.bottom >= platform.rect.top
+                    )
+
+                    if horizontal and vertical:
+                        self.player.rect.bottom = platform.rect.top
+                        self.player.y = float(self.player.rect.y)
+                        self.player.velocity_y = 0
+                        self.player.on_ground = True
+                        break
+
+            if self.player.velocity_y < 0:
+                for platform in self.platforms:
+                    horizontal = (
+                        self.player.rect.right > platform.rect.left
+                        and self.player.rect.left < platform.rect.right
+                    )
+                    hit_underside = (
+                        previous_top >= platform.rect.bottom
+                        and self.player.rect.top <= platform.rect.bottom
+                    )
+                    if horizontal and hit_underside:
+                        self.player.rect.top = platform.rect.bottom
+                        self.player.y = float(self.player.rect.y)
+                        self.player.velocity_y = 0
+                        break
+
+            if self.player.rect.top < HEIGHT * 0.4 and self.player.velocity_y < 0:
+                shift = round(HEIGHT * 0.4 - self.player.rect.top)
+                self.player.rect.y += shift
+                self.player.y += shift
+                self.score += shift
+                for platform in self.platforms:
+                    platform.rect.y += shift
+
+            self.platforms = [
+                platform for platform in self.platforms
+                if platform.rect.top < HEIGHT + 20
+            ]
+            while self.platforms and min(p.rect.top for p in self.platforms) > -80:
+                self.add_platform()
+
+            if self.player.rect.top > HEIGHT:
+                self.game_over = True
+
+    def draw(self):
+        self.screen.fill("white")
+        for platform in self.platforms:
+            platform.draw(self.screen)
+        self.player.draw(self.screen)
+        score_text = self.font.render(f"Счёт: {self.score // 10}", True, "black")
+        self.screen.blit(score_text, (12, 12))
+        if self.game_over:
+            message = self.big_font.render("Игра окончена", True, "red")
+            hint = self.font.render("Пробел — начать заново", True, "black")
+            self.screen.blit(message, message.get_rect(center=(WIDTH // 2, HEIGHT // 2)))
+            self.screen.blit(hint, hint.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 45)))
+        pygame.display.flip()
+
+    def run(self):
+        running = True
+        while running:
+            self.clock.tick(60)
+            running = self.handle_events()
+            self.update()
+            self.draw()
+
+
+if __name__ == "__main__":
+    pygame.init()
+    pygame.display.set_caption("Doodle Jump")
+    Game().run()
+    pygame.quit()
 ```
 
-Перед обновлением игрока обновляй платформы:
+### Запуск и проверка
 
-```python
-for platform in self.platforms:
-    platform.update()
-```
+Выполни **python main.py**. На синей платформе постой без движения: она должна везти персонажа. С оранжевой прыгни: она должна исчезнуть. На обычной платформе можно останавливаться и прыгать повторно.
 
-В `draw()` выбирай цвет в зависимости от `kind`: обычная платформа серая, движущаяся синяя. У движущейся платформы проверяй, что она не выходит из окна.
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
 
-### Хрупкая платформа
+## 13. Добавляем картинку без сужения спрайта
 
-Для хрупкой платформы добавь поле `broken`. При первом приземлении установи его в `True`; в последующих кадрах не рисуй её и не учитывай её в столкновениях. Чтобы игрок успевал прыгнуть, можно сначала добавить таймер исчезновения в несколько кадров, а затем подобрать удобное значение при запуске.
+Положи dino.png рядом с рабочим main.py. Код по-прежнему запускается и без картинки — тогда рисуется зелёный прямоугольник.
 
-Назначай тип при создании платформы случайно, но оставь большинство платформ обычными:
+Path(__file__).with_name("dino.png") строит путь относительно файла программы. Это позволяет запускать игру из терминала с другой текущей папкой.
 
-```python
-kind = random.choices(
-    ["normal", "moving", "fragile"],
-    weights=[70, 18, 12],
-    k=1,
-)[0]
-platform = Platform(new_x, new_y, kind)
-```
+У изображения сначала находим get_bounding_rect(): границы непрозрачных пикселей. Так большие прозрачные поля не влияют на размер персонажа. Затем вычисляем один коэффициент scale для ширины и высоты. Один коэффициент сохраняет пропорции; независимое растягивание до 35 × 35 могло бы сплющить динозаврика.
 
-Если `random.choices` ещё не изучали, используй `random.random()` и несколько `if/elif`.
+Прямоугольник столкновений остаётся 35 × 35. Готовое изображение выравниваем по его нижней середине через midbottom, чтобы ноги визуально стояли на поверхности платформы.
 
-**Запусти игру:** проверь отдельно, что обычная платформа не двигается, синяя движется в пределах экрана, а хрупкая исчезает только после касания. Если маршрут стал слишком сложным, уменьши вероятность особых платформ.
+Загрузка выполняется при создании игрока, а не в каждом кадре. В draw() остаётся только вывод уже подготовленной картинки.
 
-## 13. Если добавляешь картинку персонажа
-
-В исходном файле персонаж — зелёный прямоугольник, поэтому искажения картинки пока нет. Сначала добейся стабильной игры с прямоугольником. Затем положи изображение рядом с `main.py` и загружай его через путь относительно файла:
+### Полный main.py после этапа 13
 
 ```python
 from pathlib import Path
 
-image_path = Path(__file__).with_name("player.png")
-image = pygame.image.load(str(image_path)).convert_alpha()
+import pygame 
+import random 
+
+
+
+WIDTH = 400
+HEIGHT = 800 
+
+PLAYER_SPEED = 5
+GRAVITY = 0.5
+JUMP_POWER = -13
+GROUND_Y = HEIGHT - HEIGHT // 4
+
+class Player:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 35, 35)
+
+        self.y = float(y)
+        self.velocity_y = 0
+        self.on_ground = True
+        self.image = None
+        image_path = Path(__file__).with_name("dino.png")
+        if image_path.exists():
+            image = pygame.image.load(str(image_path)).convert_alpha()
+            bounds = image.get_bounding_rect()
+            if bounds.width and bounds.height:
+                image = image.subsurface(bounds).copy()
+                scale = min(35 / image.get_width(), 35 / image.get_height())
+                size = (
+                    max(1, round(image.get_width() * scale)),
+                    max(1, round(image.get_height() * scale)),
+                )
+                self.image = pygame.transform.smoothscale(image, size) 
+
+    def move(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+
+    def draw(self, screen):
+        if self.image is None:
+            pygame.draw.rect(screen, "green", self.rect)
+        else:
+            image_rect = self.image.get_rect(midbottom=self.rect.midbottom)
+            screen.blit(self.image, image_rect)
+
+    def gravity(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        self.rect.y = round(self.y)
+
+    def jump(self):
+        if self.on_ground:
+            self.velocity_y = JUMP_POWER
+            self.on_ground = False
+
+class Platform:
+    def __init__(self, x, y, kind="normal"):
+        self.rect = pygame.Rect(x, y, 90, 15)
+        self.kind = kind
+        self.direction = random.choice((-1, 1))
+        self.broken = False
+
+    def update(self):
+        old_x = self.rect.x
+        if self.kind == "moving":
+            self.rect.x += self.direction * 2
+            if self.rect.left <= 0:
+                self.rect.left = 0
+                self.direction = 1
+            elif self.rect.right >= WIDTH:
+                self.rect.right = WIDTH
+                self.direction = -1
+        return self.rect.x - old_x
+
+    def draw(self, screen):
+        colors = {
+            "normal": (100, 110, 115),
+            "moving": (60, 135, 220),
+            "fragile": (225, 155, 55),
+        }
+        pygame.draw.rect(screen, colors[self.kind], self.rect, border_radius=5)
+
+
+class Game:
+    def __init__(self):
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.clock = pygame.time.Clock()
+        self.font = pygame.font.Font(None, 32)
+        self.big_font = pygame.font.Font(None, 44)
+        self.reset()
+
+    def add_platform(self):
+        top = min(self.platforms, key=lambda item: item.rect.top)
+        candidates = [
+            x for x in range(8, WIDTH - 90 - 8 + 1)
+            if 75 <= abs(x - top.rect.x) <= 145
+        ]
+        preferred = [
+            x for x in candidates
+            if (x - top.rect.x) * self.last_direction < 0
+        ]
+        if preferred:
+            candidates = preferred
+        x = random.choice(candidates)
+        self.last_direction = 1 if x > top.rect.x else -1
+        y = top.rect.top - random.randint(90, 115)
+        kind = random.choices(
+            ["normal", "moving", "fragile"], weights=[70, 18, 12], k=1
+        )[0]
+        self.platforms.append(Platform(x, y, kind))
+
+    def reset(self):
+        self.player = Player(180, GROUND_Y - 35)
+        self.platforms = [Platform(151, GROUND_Y)]
+        self.score = 0
+        self.game_over = False
+        self.last_direction = 0
+        for i in range(6):
+            self.add_platform()
+
+    def jump(self):
+        if not self.player.on_ground:
+            return
+        for platform in self.platforms:
+            horizontal = (
+                self.player.rect.right > platform.rect.left
+                and self.player.rect.left < platform.rect.right
+            )
+            if (platform.kind == "fragile" and horizontal
+                    and self.player.rect.bottom == platform.rect.top):
+                platform.broken = True
+        self.player.jump()
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    if self.game_over:
+                        self.reset()
+                    else:
+                        self.jump()
+        return True
+
+    def update(self):
+        if not self.game_over:
+            self.platforms = [p for p in self.platforms if not p.broken]
+            for platform in self.platforms:
+                old_rect = platform.rect.copy()
+                dx = platform.update()
+                if (self.player.on_ground
+                        and self.player.rect.bottom == old_rect.top
+                        and self.player.rect.right > old_rect.left
+                        and self.player.rect.left < old_rect.right):
+                    self.player.rect.x += dx
+            keys = pygame.key.get_pressed()
+            self.player.move(keys)
+
+            previous_bottom = self.player.rect.bottom
+            previous_top = self.player.rect.top
+            self.player.on_ground = False
+            self.player.gravity()
+
+            if self.player.velocity_y >= 0:
+                for platform in self.platforms:
+
+                    horizontal = (
+                        self.player.rect.right > platform.rect.left
+                        and self.player.rect.left < platform.rect.right
+                    )
+
+                    vertical = (
+                        previous_bottom <= platform.rect.top
+                        and self.player.rect.bottom >= platform.rect.top
+                    )
+
+                    if horizontal and vertical:
+                        self.player.rect.bottom = platform.rect.top
+                        self.player.y = float(self.player.rect.y)
+                        self.player.velocity_y = 0
+                        self.player.on_ground = True
+                        break
+
+            if self.player.velocity_y < 0:
+                for platform in self.platforms:
+                    horizontal = (
+                        self.player.rect.right > platform.rect.left
+                        and self.player.rect.left < platform.rect.right
+                    )
+                    hit_underside = (
+                        previous_top >= platform.rect.bottom
+                        and self.player.rect.top <= platform.rect.bottom
+                    )
+                    if horizontal and hit_underside:
+                        self.player.rect.top = platform.rect.bottom
+                        self.player.y = float(self.player.rect.y)
+                        self.player.velocity_y = 0
+                        break
+
+            if self.player.rect.top < HEIGHT * 0.4 and self.player.velocity_y < 0:
+                shift = round(HEIGHT * 0.4 - self.player.rect.top)
+                self.player.rect.y += shift
+                self.player.y += shift
+                self.score += shift
+                for platform in self.platforms:
+                    platform.rect.y += shift
+
+            self.platforms = [
+                platform for platform in self.platforms
+                if platform.rect.top < HEIGHT + 20
+            ]
+            while self.platforms and min(p.rect.top for p in self.platforms) > -80:
+                self.add_platform()
+
+            if self.player.rect.top > HEIGHT:
+                self.game_over = True
+
+    def draw(self):
+        self.screen.fill("white")
+        for platform in self.platforms:
+            platform.draw(self.screen)
+        self.player.draw(self.screen)
+        score_text = self.font.render(f"Счёт: {self.score // 10}", True, "black")
+        self.screen.blit(score_text, (12, 12))
+        if self.game_over:
+            message = self.big_font.render("Игра окончена", True, "red")
+            hint = self.font.render("Пробел — начать заново", True, "black")
+            self.screen.blit(message, message.get_rect(center=(WIDTH // 2, HEIGHT // 2)))
+            self.screen.blit(hint, hint.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 45)))
+        pygame.display.flip()
+
+    def run(self):
+        running = True
+        while running:
+            self.clock.tick(60)
+            running = self.handle_events()
+            self.update()
+            self.draw()
+
+
+if __name__ == "__main__":
+    pygame.init()
+    pygame.display.set_caption("Doodle Jump")
+    Game().run()
+    pygame.quit()
 ```
 
-Чтобы не сплющить картинку, вычисляй масштаб с сохранением пропорций:
+### Запуск и проверка
 
-```python
-scale = min(target_width / image.get_width(),
-            target_height / image.get_height())
-new_size = (
-    round(image.get_width() * scale),
-    round(image.get_height() * scale),
-)
-image = pygame.transform.smoothscale(image, new_size)
-```
+Выполни **python main.py**. Запусти без dino.png — должен остаться прямоугольник. Затем добавь PNG и перезапусти: изображение должно сохранять пропорции, а ноги — совпадать с поверхностью платформы.
 
-Если у PNG есть большие прозрачные поля, сначала обрежь их по границам непрозрачных пикселей. Рисуй изображение по центру прямоугольника столкновения, чтобы визуальный спрайт и физическая позиция совпадали.
+Если результат отличается, сначала сравни свой файл с полной версией этого этапа. Особенно проверь отступы: они определяют, какая часть кода находится внутри условия, цикла, функции или класса.
 
-**Запусти игру:** картинка должна сохранять исходные пропорции и не должна менять работу столкновений.
+## 14. Как продолжать работу
 
-## 14. Финальный список проверки
+После этапа 13 у тебя есть игра с классами Player, Platform и Game, прыжком по пробелу, прокруткой камеры, счётом, перезапуском, генерацией маршрута и двумя видами специальных платформ.
 
-Перед тем как считать проект готовым, запусти `python main.py` и проверь руками:
+Для настройки сложности меняй по одному параметру и запускай игру: сначала JUMP_POWER, затем диапазон вертикальных промежутков, затем горизонтальные расстояния. После изменения силы прыжка снова проверь достижимость платформ. Увеличение модулем отрицательного JUMP_POWER поднимает персонажа выше; увеличение GRAVITY быстрее тянет его вниз.
 
-- окно корректно открывается и закрывается;
-- персонаж двигается влево и вправо и не теряется за краями;
-- пробел запускает прыжок с платформы, но не даёт бесконечно прыгать в воздухе;
-- при падении персонаж приземляется на платформу;
-- генератор продолжает маршрут вверх, платформы достижимы и не стоят одной тесной вертикальной колонной;
-- камера следует за подъёмом, старые платформы удаляются, новые создаются;
-- счёт растёт при подъёме;
-- падение завершает игру, пробел перезапускает её;
-- специальные платформы работают, если этот этап был добавлен;
-- изображение персонажа, если оно используется, не искажено.
-
-## Главное правило этого проекта
-
-После каждой небольшой правки запускай игру. Не добавляй одновременно физику, камеру, генерацию и меню: при ошибке будет трудно понять, что именно сломалось. Сначала добейся простого рабочего поведения, потом переходи к следующей возможности.
+На этапах 3–13 выше показаны полные самостоятельные версии программы. Сохраняй их как контрольные точки: если новая правка сломала поведение, можно вернуться к последнему работающему состоянию и повторить изменение небольшими частями.
