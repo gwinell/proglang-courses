@@ -1,9 +1,9 @@
 {
   "python_version": "3.14.6",
-  "notebooks": 17,
-  "code_cells": 310,
+  "notebooks": 19,
+  "code_cells": 320,
   "expected_outputs": 29,
-  "local_links": 160,
+  "local_links": 242,
   "details": [
     {
       "notebook": "python/01_basics/01_first_lesson/01_text_input_output.ipynb",
@@ -14,6 +14,11 @@
       "notebook": "python/01_basics/02_numbers_and_conditions/02_numbers_and_conditions.ipynb",
       "code_cells": 18,
       "expected_outputs": 2
+    },
+    {
+      "notebook": "python/01_basics/03_truthiness/lesson_truthiness_and_conditions.ipynb",
+      "code_cells": 6,
+      "expected_outputs": 0
     },
     {
       "notebook": "python/02_loops/01_for/03_for_loop_step_by_step.ipynb",
@@ -29,6 +34,11 @@
       "notebook": "python/02_loops/02_while/04_while_and_random.ipynb",
       "code_cells": 19,
       "expected_outputs": 2
+    },
+    {
+      "notebook": "python/02_loops/03_nested_loops/lesson_nested_loops.ipynb",
+      "code_cells": 4,
+      "expected_outputs": 0
     },
     {
       "notebook": "python/03_collections/01_lists/lesson_05_lists.ipynb",
