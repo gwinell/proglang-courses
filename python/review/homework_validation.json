@@ -1,0 +1,106 @@
+{
+  "notebooks": 19,
+  "tasks": 151,
+  "examples": 317,
+  "details": [
+    {
+      "notebook": "python/01_basics/01_first_lesson/01_text_input_output.ipynb",
+      "tasks": 6,
+      "examples": 12
+    },
+    {
+      "notebook": "python/01_basics/02_numbers_and_conditions/02_numbers_and_conditions.ipynb",
+      "tasks": 14,
+      "examples": 36
+    },
+    {
+      "notebook": "python/01_basics/03_truthiness/lesson_truthiness_and_conditions.ipynb",
+      "tasks": 5,
+      "examples": 14
+    },
+    {
+      "notebook": "python/02_loops/01_for/03_for_loop_step_by_step.ipynb",
+      "tasks": 9,
+      "examples": 18
+    },
+    {
+      "notebook": "python/02_loops/01_for/for_loop_theory_and_tasks.ipynb",
+      "tasks": 10,
+      "examples": 20
+    },
+    {
+      "notebook": "python/02_loops/02_while/04_while_and_random.ipynb",
+      "tasks": 8,
+      "examples": 16
+    },
+    {
+      "notebook": "python/02_loops/03_nested_loops/lesson_nested_loops.ipynb",
+      "tasks": 4,
+      "examples": 8
+    },
+    {
+      "notebook": "python/03_collections/01_lists/lesson_05_lists.ipynb",
+      "tasks": 8,
+      "examples": 13
+    },
+    {
+      "notebook": "python/03_collections/01_lists/lesson_06_lists_loops_comprehensions.ipynb",
+      "tasks": 11,
+      "examples": 22
+    },
+    {
+      "notebook": "python/03_collections/02_strings/lesson_strings_methods.ipynb",
+      "tasks": 9,
+      "examples": 18
+    },
+    {
+      "notebook": "python/03_collections/03_tuples_dicts_sets/lesson_tuples_dicts_sets.ipynb",
+      "tasks": 8,
+      "examples": 16
+    },
+    {
+      "notebook": "python/03_collections/04_iterators/lesson_iterators_generators.ipynb",
+      "tasks": 4,
+      "examples": 9
+    },
+    {
+      "notebook": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
+      "tasks": 14,
+      "examples": 29
+    },
+    {
+      "notebook": "python/04_functions_modules/lesson_functions_arguments_scope.ipynb",
+      "tasks": 7,
+      "examples": 15
+    },
+    {
+      "notebook": "python/05_oop/lesson_08_oop_basics.ipynb",
+      "tasks": 7,
+      "examples": 14
+    },
+    {
+      "notebook": "python/06_errors_debugging/lesson_errors_debugging.ipynb",
+      "tasks": 7,
+      "examples": 15
+    },
+    {
+      "notebook": "python/07_files_data/lesson_files_csv_json.ipynb",
+      "tasks": 7,
+      "examples": 14
+    },
+    {
+      "notebook": "python/08_project_environment/lesson_project_structure_environment.ipynb",
+      "tasks": 6,
+      "examples": 12
+    },
+    {
+      "notebook": "python/09_testing_quality/lesson_testing_quality.ipynb",
+      "tasks": 7,
+      "examples": 16
+    }
+  ],
+  "limits": [
+    "Checks structure and HTML table rendering, not correctness of student solutions.",
+    "Does not verify GitHub/Colab rendering or pedagogical workload with students."
+  ]
+}
