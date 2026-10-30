@@ -1,0 +1,100 @@
+{
+  "python_version": "3.14.6",
+  "notebooks": 17,
+  "code_cells": 310,
+  "expected_outputs": 29,
+  "local_links": 160,
+  "details": [
+    {
+      "notebook": "python/01_basics/01_first_lesson/01_text_input_output.ipynb",
+      "code_cells": 18,
+      "expected_outputs": 1
+    },
+    {
+      "notebook": "python/01_basics/02_numbers_and_conditions/02_numbers_and_conditions.ipynb",
+      "code_cells": 18,
+      "expected_outputs": 2
+    },
+    {
+      "notebook": "python/02_loops/01_for/03_for_loop_step_by_step.ipynb",
+      "code_cells": 20,
+      "expected_outputs": 2
+    },
+    {
+      "notebook": "python/02_loops/01_for/for_loop_theory_and_tasks.ipynb",
+      "code_cells": 18,
+      "expected_outputs": 0
+    },
+    {
+      "notebook": "python/02_loops/02_while/04_while_and_random.ipynb",
+      "code_cells": 19,
+      "expected_outputs": 2
+    },
+    {
+      "notebook": "python/03_collections/01_lists/lesson_05_lists.ipynb",
+      "code_cells": 26,
+      "expected_outputs": 2
+    },
+    {
+      "notebook": "python/03_collections/01_lists/lesson_06_lists_loops_comprehensions.ipynb",
+      "code_cells": 20,
+      "expected_outputs": 3
+    },
+    {
+      "notebook": "python/03_collections/02_strings/lesson_strings_methods.ipynb",
+      "code_cells": 23,
+      "expected_outputs": 2
+    },
+    {
+      "notebook": "python/03_collections/03_tuples_dicts_sets/lesson_tuples_dicts_sets.ipynb",
+      "code_cells": 24,
+      "expected_outputs": 3
+    },
+    {
+      "notebook": "python/03_collections/04_iterators/lesson_iterators_generators.ipynb",
+      "code_cells": 4,
+      "expected_outputs": 4
+    },
+    {
+      "notebook": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
+      "code_cells": 22,
+      "expected_outputs": 1
+    },
+    {
+      "notebook": "python/04_functions_modules/lesson_functions_arguments_scope.ipynb",
+      "code_cells": 24,
+      "expected_outputs": 2
+    },
+    {
+      "notebook": "python/05_oop/lesson_08_oop_basics.ipynb",
+      "code_cells": 16,
+      "expected_outputs": 2
+    },
+    {
+      "notebook": "python/06_errors_debugging/lesson_errors_debugging.ipynb",
+      "code_cells": 18,
+      "expected_outputs": 1
+    },
+    {
+      "notebook": "python/07_files_data/lesson_files_csv_json.ipynb",
+      "code_cells": 18,
+      "expected_outputs": 1
+    },
+    {
+      "notebook": "python/08_project_environment/lesson_project_structure_environment.ipynb",
+      "code_cells": 8,
+      "expected_outputs": 0
+    },
+    {
+      "notebook": "python/09_testing_quality/lesson_testing_quality.ipynb",
+      "code_cells": 14,
+      "expected_outputs": 1
+    }
+  ],
+  "limits": [
+    "Input is simulated; random is seeded.",
+    "Student task placeholders are not graded.",
+    "GUI games and terminal commands in Markdown are not executed.",
+    "Remote links and the Google Colab renderer are not tested."
+  ]
+}
