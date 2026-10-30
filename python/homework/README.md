@@ -2,7 +2,7 @@
 
 Все задания записаны внутри блокнотов, рядом с уроком и ячейками для решений. Условия содержат сюжет, требование, ограничения, таблицы входных/выходных данных и примеров. Ни одна строка этого указателя не ведёт к отдельной карточке вместо полного задания.
 
-В банке 151 задача. Количество в таблице — общий запас, а не объём ДЗ на один вечер. Следуй отметкам обязательной практики, повторения и заданий по выбору внутри конкретного блокнота. Во время проекта сокращай число отдельных упражнений.
+В банке 167 задач и 349 табличных примеров. Количество в таблице — общий запас, а не объём ДЗ на один вечер. Следуй отметкам обязательной практики, повторения и заданий по выбору внутри конкретного блокнота. Во время проекта сокращай число отдельных упражнений.
 
 | Блокнот с полными условиями | Задач в банке |
 |---|---:|
@@ -16,11 +16,15 @@
 | [Урок 5. Списки в Python](../03_collections/01_lists/lesson_05_lists.ipynb) | 8 |
 | [Урок 6. Списки в циклах и генераторы списков](../03_collections/01_lists/lesson_06_lists_loops_comprehensions.ipynb) | 11 |
 | [Урок. Строки в Python: методы, поиск и разбиение](../03_collections/02_strings/lesson_strings_methods.ipynb) | 9 |
+| [Текст и байты: `str`, `bytes`, UTF-8](../03_collections/05_text_bytes/lesson_text_bytes.ipynb) | 4 |
 | [Урок. Кортежи, словари и множества](../03_collections/03_tuples_dicts_sets/lesson_tuples_dicts_sets.ipynb) | 8 |
+| [Практикум по составным записям](../03_collections/03_tuples_dicts_sets/lesson_records_practice.ipynb) | 4 |
 | [Дополнительно: итераторы и выражения-генераторы](../03_collections/04_iterators/lesson_iterators_generators.ipynb) | 4 |
 | [Урок 7. Функции и собственные модули](../04_functions_modules/lesson_07_functions_and_modules.ipynb) | 14 |
 | [Функции: аргументы и область видимости](../04_functions_modules/lesson_functions_arguments_scope.ipynb) | 7 |
+| [Сортировка и функции-ключи](../04_functions_modules/lesson_sorting_and_callbacks.ipynb) | 4 |
 | [Урок 8. Первое знакомство с ООП: классы и объекты](../05_oop/lesson_08_oop_basics.ipynb) | 7 |
+| [Композиция и представление объектов](../05_oop/lesson_oop_composition_representation_inheritance.ipynb) | 4 |
 | [Обработка ошибок и отладка](../06_errors_debugging/lesson_errors_debugging.ipynb) | 7 |
 | [Файлы и форматы данных](../07_files_data/lesson_files_csv_json.ipynb) | 7 |
 | [Структура проекта и окружение Python](../08_project_environment/lesson_project_structure_environment.ipynb) | 6 |

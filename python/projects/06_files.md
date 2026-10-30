@@ -24,6 +24,8 @@
 
 ## Дома: «Карточки для пятиминутного повторения»
 
+[Стартовый набор проекта: CSV из пяти карточек, пример чтения и каркас раунда](starter_kits/flash_cards/README.md).
+
 **Источник:** Flash Card App Capstone, Day 31 в [указателе ashutoshkrris](https://github.com/ashutoshkrris/100-Days-of-Python#day-31---flash-card-app-capstone-project); детали проверены по [Day31 README](https://github.com/Mikerniker/100_Days_of_Python/blob/main/Day31/README.md) и [Day31/main.py](https://github.com/Mikerniker/100_Days_of_Python/blob/main/Day31/main.py). Исходная версия использует Tkinter, pandas и CSV. Домашнее задание — console-only вариант без этих технологий.
 
 **Сюжет:** ученик повторяет термины по карточкам, не перечитывая конспект. Вопросы и ответы лежат в файле; после раунда программа сохраняет результат.

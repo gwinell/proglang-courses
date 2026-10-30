@@ -22,6 +22,8 @@
 
 ## Дома: «Кто популярнее?»
 
+[Стартовый набор проекта: восемь вымышленных профилей, JSON, этапы чтения/сравнения и каркас игры](starter_kits/higher_lower/README.md).
+
 **Источник:** Higher Lower Game, Day 14: [индекс ashutoshkrris](https://github.com/ashutoshkrris/100-Days-of-Python#day-14---higher-lower-game-project), детали [Day14 README](https://github.com/Mikerniker/100_Days_of_Python/blob/main/Day14/README.md) и [Day14/main.py](https://github.com/Mikerniker/100_Days_of_Python/blob/main/Day14/main.py). В исходнике сравниваются словари публичных персонажей с количеством подписчиков; подключены датасет и графические строки, которые не используются.
 
 **Сюжет:** игрок сравнивает двух вымышленных авторов и выбирает, у кого больше читателей.

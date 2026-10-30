@@ -11,7 +11,7 @@ import nbformat
 from nbconvert.filters.markdown import markdown2html
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK = re.compile(r'^### ДЗ-\d+\.\d+\. ')
+TASK = re.compile(r'^### ДЗ(?:[-.]\S*)?\s')
 
 
 def main():

@@ -1,0 +1,10 @@
+[
+  {"name": "Лисёнок Лис", "profession": "автор задач", "country": "Россия", "readers": 184},
+  {"name": "Мира Маяк", "profession": "музыкант", "country": "Казахстан", "readers": 327},
+  {"name": "Пиксель Пон", "profession": "художник", "country": "Армения", "readers": 96},
+  {"name": "Тим Термос", "profession": "путешественник", "country": "Грузия", "readers": 512},
+  {"name": "Ника Нота", "profession": "композитор", "country": "Беларусь", "readers": 241},
+  {"name": "Рома Робот", "profession": "изобретатель", "country": "Россия", "readers": 403},
+  {"name": "Соня Сова", "profession": "биолог", "country": "Кыргызстан", "readers": 158},
+  {"name": "Кир Карандаш", "profession": "иллюстратор", "country": "Узбекистан", "readers": 289}
+]

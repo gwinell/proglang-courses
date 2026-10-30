@@ -1,7 +1,7 @@
 {
-  "notebooks": 19,
-  "tasks": 151,
-  "examples": 317,
+  "notebooks": 23,
+  "tasks": 167,
+  "examples": 349,
   "details": [
     {
       "notebook": "python/01_basics/01_first_lesson/01_text_input_output.ipynb",
@@ -54,6 +54,11 @@
       "examples": 18
     },
     {
+      "notebook": "python/03_collections/03_tuples_dicts_sets/lesson_records_practice.ipynb",
+      "tasks": 4,
+      "examples": 8
+    },
+    {
       "notebook": "python/03_collections/03_tuples_dicts_sets/lesson_tuples_dicts_sets.ipynb",
       "tasks": 8,
       "examples": 16
@@ -62,6 +67,11 @@
       "notebook": "python/03_collections/04_iterators/lesson_iterators_generators.ipynb",
       "tasks": 4,
       "examples": 9
+    },
+    {
+      "notebook": "python/03_collections/05_text_bytes/lesson_text_bytes.ipynb",
+      "tasks": 4,
+      "examples": 8
     },
     {
       "notebook": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
@@ -74,9 +84,19 @@
       "examples": 15
     },
     {
+      "notebook": "python/04_functions_modules/lesson_sorting_and_callbacks.ipynb",
+      "tasks": 4,
+      "examples": 8
+    },
+    {
       "notebook": "python/05_oop/lesson_08_oop_basics.ipynb",
       "tasks": 7,
       "examples": 14
+    },
+    {
+      "notebook": "python/05_oop/lesson_oop_composition_representation_inheritance.ipynb",
+      "tasks": 4,
+      "examples": 8
     },
     {
       "notebook": "python/06_errors_debugging/lesson_errors_debugging.ipynb",

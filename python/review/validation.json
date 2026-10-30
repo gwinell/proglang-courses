@@ -1,9 +1,9 @@
 {
   "python_version": "3.14.6",
-  "notebooks": 19,
-  "code_cells": 456,
+  "notebooks": 23,
+  "code_cells": 492,
   "expected_outputs": 29,
-  "local_links": 231,
+  "local_links": 252,
   "details": [
     {
       "notebook": "python/01_basics/01_first_lesson/01_text_input_output.ipynb",
@@ -56,6 +56,11 @@
       "expected_outputs": 2
     },
     {
+      "notebook": "python/03_collections/03_tuples_dicts_sets/lesson_records_practice.ipynb",
+      "code_cells": 9,
+      "expected_outputs": 0
+    },
+    {
       "notebook": "python/03_collections/03_tuples_dicts_sets/lesson_tuples_dicts_sets.ipynb",
       "code_cells": 32,
       "expected_outputs": 3
@@ -64,6 +69,11 @@
       "notebook": "python/03_collections/04_iterators/lesson_iterators_generators.ipynb",
       "code_cells": 8,
       "expected_outputs": 4
+    },
+    {
+      "notebook": "python/03_collections/05_text_bytes/lesson_text_bytes.ipynb",
+      "code_cells": 8,
+      "expected_outputs": 0
     },
     {
       "notebook": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
@@ -76,9 +86,19 @@
       "expected_outputs": 2
     },
     {
+      "notebook": "python/04_functions_modules/lesson_sorting_and_callbacks.ipynb",
+      "code_cells": 9,
+      "expected_outputs": 0
+    },
+    {
       "notebook": "python/05_oop/lesson_08_oop_basics.ipynb",
       "code_cells": 23,
       "expected_outputs": 2
+    },
+    {
+      "notebook": "python/05_oop/lesson_oop_composition_representation_inheritance.ipynb",
+      "code_cells": 9,
+      "expected_outputs": 0
     },
     {
       "notebook": "python/06_errors_debugging/lesson_errors_debugging.ipynb",
@@ -97,7 +117,7 @@
     },
     {
       "notebook": "python/09_testing_quality/lesson_testing_quality.ipynb",
-      "code_cells": 21,
+      "code_cells": 22,
       "expected_outputs": 1
     }
   ],
