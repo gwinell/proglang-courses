@@ -1,0 +1,70 @@
+{
+  "assets": [
+    {
+      "file": "01-array-idea.jpg",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-5/coding4_introToTables.jpg",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-5/coding4_introToTables.jpg",
+      "sha256": "1bdd8e05842ae12704daee41be6354c3c4dce00e6c8e3c8752eff737790ebf26",
+      "bytes": 162831,
+      "modified": false,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "file": "02-array-functions.jpg",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-5/coding4_arrayFunctions.jpg",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-5/coding4_arrayFunctions.jpg",
+      "sha256": "51cc95550fdf0ce30061a28a992feb242e80a7e82a34b2bec8af2b340cc3a462",
+      "bytes": 122884,
+      "modified": false,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "file": "03-without-abstraction.png",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-6/coding-concept-abstraction/no-abstraction-backpacks.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-6/coding-concept-abstraction/no-abstraction-backpacks.png",
+      "sha256": "92e5c6403c538fdea50e9378f90d667002f31a17e0dc44f77eb0a92eceae81e1",
+      "bytes": 33217,
+      "modified": false,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "file": "04-with-abstraction.png",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-6/coding-concept-abstraction/abstraction-backpacks.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-6/coding-concept-abstraction/abstraction-backpacks.png",
+      "sha256": "b5a8757f8b653c8855e980712748e2b8b746961c078014811b55bffb62ca2a53",
+      "bytes": 8737,
+      "modified": false,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "file": "05-create-module.png",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-6/intro-to-module-scripts/create-module-script.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-6/intro-to-module-scripts/create-module-script.png",
+      "sha256": "8943bafa13c4554dd1dfef6812a2c2c6a725b042ca78e9cb81fa5a2ca819885c",
+      "bytes": 11778,
+      "modified": false,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "file": "06-module-menu.png",
+      "repository": "luau-lang/site",
+      "commit": "c0eb09dc75b30cac6af600df0a4c07b4079a4b51",
+      "source_path": "src/assets/images/create-script.png",
+      "source_url": "https://github.com/luau-lang/site/blob/c0eb09dc75b30cac6af600df0a4c07b4079a4b51/src/assets/images/create-script.png",
+      "sha256": "8c044aa9b14c20728e12a7699ce266c2ebe2a33961ab52a3ac08861a3923da02",
+      "bytes": 200777,
+      "modified": false,
+      "license": "MIT"
+    }
+  ]
+}
