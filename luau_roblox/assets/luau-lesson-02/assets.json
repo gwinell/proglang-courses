@@ -1,0 +1,70 @@
+{
+  "assets": [
+    {
+      "file": "01-create-script.png",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-1/hover-over-serverscriptservice_400x400.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-1/hover-over-serverscriptservice_400x400.png",
+      "license": "CC-BY-4.0",
+      "sha256": "b8f11003e30fc8dcff1bfefac33eae01b04992c71fac1c685de8d663ffadd0c6",
+      "bytes": 16755,
+      "modified": false
+    },
+    {
+      "file": "02-output.png",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-1/helloworld-output_800x150.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-1/helloworld-output_800x150.png",
+      "license": "CC-BY-4.0",
+      "sha256": "9b8b3b128eb22626ea6cdfd89dbde5209863369b7fa423cdcb152196d61aad1a",
+      "bytes": 8775,
+      "modified": false
+    },
+    {
+      "file": "03-for-parts.png",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-4/forLoop_annotatedExample.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-4/forLoop_annotatedExample.png",
+      "license": "CC-BY-4.0",
+      "sha256": "2730ec85449c2b98187706fa952dd8ff7adc7935b75638b34d6065a9bb427436",
+      "bytes": 15880,
+      "modified": false
+    },
+    {
+      "file": "04-for-flow.png",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/education/coding-4/forLoopDiagram_generic2.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-4/forLoopDiagram_generic2.png",
+      "license": "CC-BY-4.0",
+      "sha256": "0f1149f7f86f5de50477a9ce8ba91708423f4e79c052b1095187c419d199078a",
+      "bytes": 14099,
+      "modified": false
+    },
+    {
+      "file": "05-scope.png",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "source_path": "content/en-us/assets/scripting/scripts/Scope-Diagram.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/scripting/scripts/Scope-Diagram.png",
+      "license": "CC-BY-4.0",
+      "sha256": "40fd09c59b265de6dd60ed68fbc71c4159d01c33025059ca424dc0717ab31b86",
+      "bytes": 29821,
+      "modified": false
+    },
+    {
+      "file": "06-choose-script.png",
+      "repository": "luau-lang/site",
+      "commit": "c0eb09dc75b30cac6af600df0a4c07b4079a4b51",
+      "source_path": "src/assets/images/create-script.png",
+      "source_url": "https://github.com/luau-lang/site/blob/c0eb09dc75b30cac6af600df0a4c07b4079a4b51/src/assets/images/create-script.png",
+      "license": "MIT",
+      "sha256": "8c044aa9b14c20728e12a7699ce266c2ebe2a33961ab52a3ac08861a3923da02",
+      "bytes": 200777,
+      "modified": false
+    }
+  ]
+}
