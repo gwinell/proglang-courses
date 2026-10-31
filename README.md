@@ -14,6 +14,11 @@
 - [Последовательный маршрут по курсу](python/README.md)
 - [Что улучшено по результатам сопоставления с книгой](python/review/COURSE_REVIEW.md)
 
+## Luau и Roblox Studio
+
+- [Открыть раздел Luau и Roblox Studio](luau_roblox/README.md)
+- **[Урок 1. Знакомство с Roblox Studio](luau_roblox/00_start/01_studio_basics.md)** — десять иллюстраций, объяснения, практика с платформами и самостоятельное домашнее задание. Для начинающих, без программирования.
+
 ## Jupyter Notebook
 
 - **Python → Основы → Первый урок:** [текст, ввод и вывод (.ipynb)](python/01_basics/01_first_lesson/01_text_input_output.ipynb) · [открыть в Google Colab](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/01_basics/01_first_lesson/01_text_input_output.ipynb).

@@ -1,0 +1,76 @@
+{
+  "source_repository": "Roblox/creator-docs",
+  "source_commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+  "assets": [
+    {
+      "file": "01-baseplate.jpg",
+      "source_path": "content/en-us/assets/getting-started/New-Template-With-Spawn-Location.jpg",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/getting-started/New-Template-With-Spawn-Location.jpg",
+      "sha256": "60962c87b1c6cabb04d8612a315581c6a3a7f08fd863ffe86597cf16d9206057",
+      "bytes": 220843
+    },
+    {
+      "file": "02-explorer.jpg",
+      "source_path": "content/en-us/assets/tutorials/studio-lesson/Explorer.jpg",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/tutorials/studio-lesson/Explorer.jpg",
+      "sha256": "4c68ffd15e6a35751f18ecc044e0bdf16de6acac2ac2016e59ef934547409b87",
+      "bytes": 281032
+    },
+    {
+      "file": "03-properties.jpg",
+      "source_path": "content/en-us/assets/tutorials/studio-lesson/Properties.jpg",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/tutorials/studio-lesson/Properties.jpg",
+      "sha256": "6a331fec52471f568f0433136aec2d6c86413d810c4f941624591d78d62104f0",
+      "bytes": 283352
+    },
+    {
+      "file": "04-insert-part.png",
+      "source_path": "content/en-us/assets/studio/general/Toolbar-Insert-Part-Widget.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/studio/general/Toolbar-Insert-Part-Widget.png",
+      "sha256": "50a3577c3d788d427596255338d489bbeeceaa58d4d2e56519ca6cc047e1ec7b",
+      "bytes": 145000
+    },
+    {
+      "file": "05-transform-tools.png",
+      "source_path": "content/en-us/assets/studio/general/Toolbar-Transform-Tools.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/studio/general/Toolbar-Transform-Tools.png",
+      "sha256": "e4992d20c89142e5a369f14aac5ae2fa002cfeb51c8be62663fa91abdde6fe97",
+      "bytes": 208753
+    },
+    {
+      "file": "06-move.png",
+      "source_path": "content/en-us/assets/modeling/parts/Transform-Move-SM.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/modeling/parts/Transform-Move-SM.png",
+      "sha256": "e3b0c62f73a076233e254c1f268caf4614a66977e3ca5f3961b99939e250b0fe",
+      "bytes": 223953
+    },
+    {
+      "file": "07-scale.png",
+      "source_path": "content/en-us/assets/modeling/parts/Transform-Scale-SM.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/modeling/parts/Transform-Scale-SM.png",
+      "sha256": "a2d83d3e1fac2d809a3f911b52bfcbf6e3d1de272fc3807360930a01357c2bee",
+      "bytes": 201342
+    },
+    {
+      "file": "08-rotate.png",
+      "source_path": "content/en-us/assets/modeling/parts/Transform-Rotate-SM.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/modeling/parts/Transform-Rotate-SM.png",
+      "sha256": "0e3584fd7c8b6d4f3e791f96e728bd6e7823cc8908374fbfc4c9173f76ffd315",
+      "bytes": 245922
+    },
+    {
+      "file": "09-anchor.png",
+      "source_path": "content/en-us/assets/studio/general/Toolbar-Anchor.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/studio/general/Toolbar-Anchor.png",
+      "sha256": "bf9b3cc2124fbc37028765f94d90a09b294e6f075fa8de9a3d608752c7fe1d08",
+      "bytes": 200390
+    },
+    {
+      "file": "10-testing.png",
+      "source_path": "content/en-us/assets/studio/general/Mezzanine-Testing-Mode-Test.png",
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/studio/general/Mezzanine-Testing-Mode-Test.png",
+      "sha256": "65f5590da0735beb6ab74d74d021c35ad5ddeb61a116c2d10c30d6067eda33a8",
+      "bytes": 76142
+    }
+  ]
+}
