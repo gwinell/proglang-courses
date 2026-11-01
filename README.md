@@ -22,6 +22,8 @@
 - **[Урок 3. Таблицы и организация кода](luau_roblox/03_tables_modules/03_tables_and_modules.md)** — массивы, словари, перебор, ссылки и копии, ModuleScript и require; шесть иллюстраций, проект лавки и домашняя работа.
 - **[Урок 4. Объекты и события Roblox](luau_roblox/04_objects_events/04_objects_and_events.md)** — свойства, Parent/Child, создание и уничтожение объектов, события и обработчики; скриншоты, схемы, GIF, код пульта и домашний проект.
 
+- **[Урок 5. Игровые механики](luau_roblox/05_gameplay/05_game_mechanics.md)** — урон, монеты, checkpoints, счётчики, появление предметов и защита от повторов; три скриншота, три схемы, GIF и проект из трёх файлов.
+
 ## Jupyter Notebook
 
 - **Python → Основы → Первый урок:** [текст, ввод и вывод (.ipynb)](python/01_basics/01_first_lesson/01_text_input_output.ipynb) · [открыть в Google Colab](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/01_basics/01_first_lesson/01_text_input_output.ipynb).

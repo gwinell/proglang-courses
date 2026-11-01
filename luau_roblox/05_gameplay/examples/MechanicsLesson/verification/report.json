@@ -1,0 +1,31 @@
+{
+  "compiler": "Luau CLI 0.745",
+  "files": [
+    {
+      "file": "GameRules.luau",
+      "sha256": "480b610680869f02cbd550281316670b0eeabd28354118f5760ede85966cead5",
+      "compiled": true
+    },
+    {
+      "file": "Main.server.luau",
+      "sha256": "f9a4cf9bbc96b3bbdcc3226d8207ec8fcc3eba3aed8317b9712b6dd44cca76c6",
+      "compiled": true
+    },
+    {
+      "file": "World.luau",
+      "sha256": "22d72768b2fc676dda9e8f7eeb8a0ae3d088b54eee1ff28782d72f28eee6c33e",
+      "compiled": true
+    }
+  ],
+  "test_output": "Checks passed: 45",
+  "checks_passed": 45,
+  "model": "Explicit events and deterministic time; not the Roblox engine",
+  "studio_play_test_performed": false,
+  "limits": [
+    "physical touch generation",
+    "built-in leaderboard rendering",
+    "network replication",
+    "actual character respawning",
+    "Roblox engine scheduling"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "external_assets": [
+    {
+      "name": "01-leaderboard.jpg",
+      "source_path": "content/en-us/assets/players/leaderboard/Leaderboard-On-Screen.jpg",
+      "purpose": "Таблица игроков и статистика текущей сессии",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "git_blob": "c1ac22205479100f0515f6f72fd1b176e997ad78",
+      "sha256": "81f8b0976bd97e29a06fb2aa252fab87121650609e2c0303dbfdfac710f4cab5",
+      "bytes": 371816
+    },
+    {
+      "name": "02-health-pickup.jpg",
+      "source_path": "content/en-us/assets/tutorials/creating-a-health-pickup/healthPickupGame.jpg",
+      "purpose": "Подбираемый предмет восстановления здоровья",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "git_blob": "bfe26515c97fbdc9b93c76858c4f9aa10776d75e",
+      "sha256": "c71434ac9b8bb5b173ceceb4ce90a1bcade41babe3c5dc61e0cf9a19870e1be6",
+      "bytes": 474214
+    },
+    {
+      "name": "03-spawn.jpg",
+      "source_path": "content/en-us/assets/education/build-it-play-it-create-and-destroy/SpawnLocation_Select_920x600.jpg",
+      "purpose": "SpawnLocation в редакторе",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "git_blob": "8b37713bd1cac63e8b4f97f366648182b85dc7cc",
+      "sha256": "6a50e271c0c0db5c5b008ee07f9c90276bbdb44b97e9ddc0296bed2d0c1546b4",
+      "bytes": 129839
+    }
+  ],
+  "original_assets": [
+    {
+      "name": "04-state-scope.svg",
+      "author": "Материалы курса proglang-courses",
+      "kind": "original vector diagram",
+      "sha256": "6754d9652f0272954000ac018cd8481217a9202d866915c7b50bdce03ec528ff",
+      "bytes": 3369
+    },
+    {
+      "name": "05-checkpoints.svg",
+      "author": "Материалы курса proglang-courses",
+      "kind": "original vector diagram",
+      "sha256": "a188746574ba8d9ea1a3b6fb1af903fe20c997738ed291883190361fa27fa6af",
+      "bytes": 2957
+    },
+    {
+      "name": "06-pickup-cycle.svg",
+      "author": "Материалы курса proglang-courses",
+      "kind": "original vector diagram",
+      "sha256": "3a17875709881255ceabe91ef124c280d47d7cbd2dca6cc584b0978766ecf333",
+      "bytes": 4533
+    },
+    {
+      "name": "07-coin-cycle.gif",
+      "author": "Материалы курса proglang-courses",
+      "kind": "schematic animation, not a Studio recording",
+      "sha256": "575fb6aaabccb2c9f1a94cdfbbd75579abe839ac2e9c338d65ab054508ae6a6e",
+      "bytes": 193852
+    }
+  ]
+}
