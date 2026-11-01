@@ -1,0 +1,88 @@
+{
+  "external_assets": [
+    {
+      "name": "01-properties.png",
+      "source_path": "content/en-us/assets/education/coding-1/part-properties_400.png",
+      "purpose": "Свойства Part в окне Properties",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "git_blob": "c51f7186a5acee295520ac5fcf8b8e34c384b5e4",
+      "sha256": "40e9449807e5bfab268569e4936c96eee22d4ee3573de2648b2085a2241161eb",
+      "bytes": 23116,
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-1/part-properties_400.png",
+      "modified": false,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "name": "02-parent-child.png",
+      "source_path": "content/en-us/assets/education/coding-1/color-changer_400x216.png",
+      "purpose": "Дочерний Script внутри Part",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "git_blob": "e162353c70c0a57a6ec91c887c5fbce4f89d55fc",
+      "sha256": "9f2aaf8a7338773422f517375a88e098fe744ef830b8dd2a5cadca8b618343cc",
+      "bytes": 10697,
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/education/coding-1/color-changer_400x216.png",
+      "modified": false,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "name": "03-touch-log.png",
+      "source_path": "content/en-us/assets/scripting/scripts/Touched-Event-No-Debounce.png",
+      "purpose": "Повторные вызовы Touched без ограничения",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "git_blob": "181378d40f05f995952e2b525f82f754f52490c4",
+      "sha256": "70222aa3ed183a39812c56f285aaadb1c86bee09e4e07111d8a0b278628184ef",
+      "bytes": 81983,
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/scripting/scripts/Touched-Event-No-Debounce.png",
+      "modified": false,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "name": "04-prompt.png",
+      "source_path": "content/en-us/assets/ui/proximity-prompt/Prompt-Diagram.png",
+      "purpose": "Подписи и клавиша ProximityPrompt",
+      "repository": "Roblox/creator-docs",
+      "commit": "c8f5276703948ef4868c9b9fd44fae619dbe2f11",
+      "git_blob": "14cde1f6521421e9eff7431535282b0657b96636",
+      "sha256": "c68171442b67ad82ca41854db24568eb65d15012870e8f3380d2b1f0768a2360",
+      "bytes": 229191,
+      "source_url": "https://github.com/Roblox/creator-docs/blob/c8f5276703948ef4868c9b9fd44fae619dbe2f11/content/en-us/assets/ui/proximity-prompt/Prompt-Diagram.png",
+      "modified": false,
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "original_assets": [
+    {
+      "file": "05-hierarchy.svg",
+      "purpose": "Статичная схема детей и потомков",
+      "bytes": 4053,
+      "sha256": "417fc051191b71b266ad9cb6408801cd5c38c5de2f76c5dcc8fd9366cf6249e0"
+    },
+    {
+      "file": "06-event-flow.svg",
+      "purpose": "Действие, сигнал, обработчик и результат",
+      "bytes": 3656,
+      "sha256": "3b2f822a86f66276e13888cdcad3c31cf7d202f0b461de59dd9e329918a24a91"
+    },
+    {
+      "file": "07-lifecycle.svg",
+      "purpose": "Instance.new, Parent и Destroy",
+      "bytes": 3550,
+      "sha256": "8eb712c9de391b7ff5dbc0d09cfdc54e59310538886df2ede666ca355621770c"
+    },
+    {
+      "file": "08-reparent.gif",
+      "purpose": "Смена родителя без перемещения в 3D",
+      "bytes": 270494,
+      "sha256": "d144eca646b7c44f97ebd7661f958953bba45ee04ff8975515a0519fc92a1c0b"
+    },
+    {
+      "file": "09-event-cooldown.gif",
+      "purpose": "Две активации, создание и удаление куба с паузой",
+      "bytes": 234111,
+      "sha256": "93a1f30b166f93204fb509c3d88310be031c1ead544b5d87c6df9861fb13a252"
+    }
+  ]
+}

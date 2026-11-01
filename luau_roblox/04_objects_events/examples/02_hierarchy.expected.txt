@@ -1,0 +1,9 @@
+Inbox
+2
+4
+true
+Token
+Archive
+4
+0
+1
