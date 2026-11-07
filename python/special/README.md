@@ -1,14 +1,15 @@
-# Дополнительный урок: переменные, `print()` и `input()`
+# Дополнительные уроки Python
 
-[![Открыть в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/variables_print_input.ipynb)
+## Переменные, `print()` и `input()`
 
-Блокнот объясняет переменные, вывод текста командой `print()`, аргументы, настройки `sep` и `end`, ввод через `input()`, преобразование чисел и арифметические действия.
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/variables_print_input.ipynb)
 
-В конце есть два варианта определений: простые — чтобы понять тему, и формальные — чтобы ответить в колледже. После объяснений даны задания с ожидаемым выводом. Под каждым условием находится отдельная ячейка для решения.
+Простые объяснения, формальные определения и задания с ожидаемым выводом.
 
-## Файлы
+## Типы данных, сравнения и условия
 
-- [Открыть блокнот](variables_print_input.ipynb)
-- Иллюстрации: `variable_box.png`, `print_screen.png`, `input_response.png`.
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/conditions_bool_if.ipynb)
 
-Иллюстрации должны лежать рядом с блокнотом, чтобы отображаться в Jupyter и Google Colab.
+Конспект по `type()`, типам `int`, `float`, `str`, `bool`, сравнениям, `bool()`, условиям `if/elif/else` и логическим операторам `and/or`. В конце есть простые и формальные определения, а также 12 подробных заданий с отдельной ячейкой для решения каждого задания.
+
+Иллюстрации к уроку лежат рядом с блокнотом: `comparison_scale.png`, `truthy_empty_full.png`, `if_branch_paths.png`.
