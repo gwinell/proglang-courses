@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="490" viewBox="0 0 1080 490" role="img" aria-labelledby="title desc">
+<title id="title">Разница между break и continue</title><desc id="desc">break полностью выходит из цикла; continue пропускает остаток тела текущей итерации и возвращает к проверке условия.</desc>
+<defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#36556f"/></marker></defs><rect width="1080" height="490" rx="20" fill="#f7fafc"/>
+<text x="540" y="45" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#17324d">Два способа изменить ход цикла</text>
+<line x1="540" y1="75" x2="540" y2="450" stroke="#ccd6df" stroke-width="2"/>
+<text x="270" y="95" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#a33f36">break</text>
+<text x="810" y="95" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#2c6d99">continue</text>
+<rect x="170" y="125" width="200" height="60" rx="14" fill="#fff2cc" stroke="#c58c1c" stroke-width="3"/><text x="270" y="163" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#4f3a08">Внутри цикла</text>
+<path d="M270 185 V220" stroke="#36556f" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="170" y="226" width="200" height="60" rx="14" fill="#fbe9e7" stroke="#c85a50" stroke-width="3"/><text x="270" y="264" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#6a2d28">выполнить break</text>
+<path d="M270 286 V335" stroke="#36556f" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="170" y="341" width="200" height="66" rx="14" fill="#e4effa" stroke="#3977b8" stroke-width="3"/><text x="270" y="369" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#17324d">Выйти из цикла,</text><text x="270" y="393" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#17324d">идти после него</text>
+<rect x="710" y="125" width="200" height="60" rx="14" fill="#fff2cc" stroke="#c58c1c" stroke-width="3"/><text x="810" y="163" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#4f3a08">Внутри цикла</text>
+<path d="M810 185 V220" stroke="#36556f" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="710" y="226" width="200" height="60" rx="14" fill="#e4effa" stroke="#3977b8" stroke-width="3"/><text x="810" y="264" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#17324d">выполнить continue</text>
+<path d="M710 256 H635 V430 H810 V412" fill="none" stroke="#36556f" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="630" y="326" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#36556f">пропустить остаток тела</text>
+<rect x="710" y="341" width="200" height="66" rx="14" fill="#e4f5ec" stroke="#379669" stroke-width="3"/><text x="810" y="369" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#194d35">Снова проверить</text><text x="810" y="393" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#194d35">условие цикла</text>
+</svg>
