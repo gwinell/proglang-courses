@@ -3,12 +3,13 @@
   "source_repo": "gwinell/proglang-courses",
   "source_branch": "codetogether/python-course",
   "metadata": {
-    "scope": "Explicit assignments extracted for separate attachment in codeTogether. Includes standardized homework, marked mini/self assignments, task-list sections, explicit notebook reading and practice exercises, learner-facing task/workshop Markdown, CLI/Git and debugger exercises, and all 14 actionable exercises in the Doodle Jump self-study section. Keeps examples, explanatory material and project briefs as course materials.",
+    "scope": "Explicit assignments extracted for separate attachment in codeTogether. Includes standardized homework, marked mini/self assignments, seven actionable bold Попробуй exercises, task-list sections, explicit notebook reading and practice exercises, learner-facing task/workshop Markdown, CLI/Git and debugger exercises, and all 14 actionable exercises in the Doodle Jump self-study section. Keeps examples, explanatory material and project briefs as course materials.",
     "source_span_convention": "Notebook source_start/source_end are 0-based half-open character offsets within the given cell. Markdown start_line/end_line are 1-based half-open line bounds; end_line is the first line outside the extracted block.",
     "kind_rules": "code means a programming or command-line implementation task; text means explanation, written tracing, reading, or output prediction; quiz is reserved for explicit choice-based questions. Combined tasks use code when implementation is the main deliverable; explicitly labeled reading/prediction tasks use text.",
     "audit_notes": [
       "Found and mapped all 167 standardized notebook ### ДЗ blocks.",
       "Also exported explicit ### Мини-задание / мини-практика headings, bold **Мини-задание** / **Самостоятельно** markers, numbered lists under task headings, A–H cards under ## Задания, and direct practice/reading sections.",
+      "Exported 7 actionable bold **Попробуй.** exercises; excluded 2 prediction-only experiment prompts attached to demonstrations.",
       "The heading ### Задание на предсказание is exported as text because it explicitly labels an assignment; unmarked prediction questions and unmarked self-check sections are excluded.",
       "The dictionary frequency code under “Одна задача для словаря” is a demonstration; only the following **Самостоятельно.** paragraph is exported as a task.",
       "The headings “Одна задача: for или while?” and “Фильтр и выбор значения — разные задачи” introduce theory/examples and are not standalone tasks.",
@@ -22,14 +23,14 @@
       "Examples, demos, mini-experiments, unmarked predict-the-output prompts, and unmarked self-check questions"
     ],
     "counts": {
-      "assignments": 364,
+      "assignments": 371,
       "by_kind": {
-        "code": 359,
+        "code": 366,
         "text": 5,
         "quiz": 0
       },
       "by_source_type": {
-        "notebook_inline": 43,
+        "notebook_inline": 50,
         "notebook_heading": 270,
         "markdown_heading": 51
       },
@@ -40,6 +41,9 @@
       "learner_markdown_sources": 8,
       "standardized_homework_markers_found": 167,
       "standardized_homework_markers_covered": 167,
+      "explicit_try_markers_found": 9,
+      "explicit_try_markers_covered": 7,
+      "explicit_try_prediction_experiments_excluded": 2,
       "rewritten_relative_markdown_links": 1,
       "rewritten_relative_images": 0
     },
@@ -1428,6 +1432,17 @@
           "title": "Списки",
           "assignments": [
             {
+              "id": "python-task-7448d81ab12d8ebe",
+              "title": "Создай список из четырёх любимых игр, книг или блюд.",
+              "kind": "code",
+              "prompt": "Создай список из четырёх любимых игр, книг или блюд. Выведи первый, второй и последний элементы. Для списка из `n` элементов последний положительный индекс равен `n - 1`, а последний отрицательный — всегда `-1`.",
+              "source_path": "python/03_collections/01_lists/lesson_05_lists.ipynb",
+              "source_type": "notebook_inline",
+              "cell_index": 12,
+              "source_start": 0,
+              "source_end": 225
+            },
+            {
               "id": "python-task-ad00e1397ad8ee37",
               "title": "Возьми срез списка numbers, чтобы получить [2, 3, 4].",
               "kind": "code",
@@ -2282,6 +2297,17 @@
           "title": "Функции и модули",
           "assignments": [
             {
+              "id": "python-task-5fb04f1040f3db45",
+              "title": "Добавь в show_menu() ещё один пункт.",
+              "kind": "code",
+              "prompt": "Добавь в `show_menu()` ещё один пункт. Вызови функцию второй раз в конце ячейки.",
+              "source_path": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
+              "source_type": "notebook_inline",
+              "cell_index": 10,
+              "source_start": 0,
+              "source_end": 96
+            },
+            {
               "id": "python-task-14b22c94ed334f52",
               "title": "Создай функцию show_difference(first, second), которая печатает разность first - second.",
               "kind": "code",
@@ -2291,6 +2317,17 @@
               "cell_index": 14,
               "source_start": 159,
               "source_end": 300
+            },
+            {
+              "id": "python-task-5cf405d4fe72d614",
+              "title": "Напиши multiply(first, second), которая возвращает произведение.",
+              "kind": "code",
+              "prompt": "Напиши `multiply(first, second)`, которая возвращает произведение. Сохрани результат в переменную и выведи сообщение с f-строкой.",
+              "source_path": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
+              "source_type": "notebook_inline",
+              "cell_index": 22,
+              "source_start": 171,
+              "source_end": 316
             },
             {
               "id": "python-task-53bd103214a30647",
@@ -2304,6 +2341,17 @@
               "source_end": 194
             },
             {
+              "id": "python-task-c2ce8432354dcd3a",
+              "title": "Добавь ветку elif, чтобы отдельно описать возраст 13 лет.",
+              "kind": "code",
+              "prompt": "Добавь ветку `elif`, чтобы отдельно описать возраст 13 лет. Выбери порядок условий так, чтобы каждое значение попадало в нужную ветку.",
+              "source_path": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
+              "source_type": "notebook_inline",
+              "cell_index": 31,
+              "source_start": 0,
+              "source_end": 150
+            },
+            {
               "id": "python-task-dacc81f60cb7782d",
               "title": "Измени список и проверь подсчёт.",
               "kind": "code",
@@ -2313,6 +2361,28 @@
               "cell_index": 33,
               "source_start": 166,
               "source_end": 275
+            },
+            {
+              "id": "python-task-fba4b9ece58a1099",
+              "title": "Измени условие на number % 2 == 0, чтобы функция собирала чётные числа.",
+              "kind": "code",
+              "prompt": "Измени условие на `number % 2 == 0`, чтобы функция собирала чётные числа. Для нуля это условие тоже верно.",
+              "source_path": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
+              "source_type": "notebook_inline",
+              "cell_index": 35,
+              "source_start": 0,
+              "source_end": 122
+            },
+            {
+              "id": "python-task-5f00e683c0e07786",
+              "title": "Добавь ученика в список и ещё одно слово.",
+              "kind": "code",
+              "prompt": "Добавь ученика в список и ещё одно слово. Поменяй минимальную длину в вызове `count_long_words()`.",
+              "source_path": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb",
+              "source_type": "notebook_inline",
+              "cell_index": 47,
+              "source_start": 0,
+              "source_end": 114
             },
             {
               "id": "python-task-3a190d127f954a1a",
@@ -2756,6 +2826,17 @@
               "cell_index": 11,
               "source_start": 432,
               "source_end": 513
+            },
+            {
+              "id": "python-task-f678ae85565b601d",
+              "title": "Добавь атрибут level в __init__, передай уровень при создании двух героев и выведи его.",
+              "kind": "code",
+              "prompt": "Добавь атрибут `level` в `__init__`, передай уровень при создании двух героев и выведи его.",
+              "source_path": "python/05_oop/lesson_08_oop_basics.ipynb",
+              "source_type": "notebook_inline",
+              "cell_index": 16,
+              "source_start": 183,
+              "source_end": 290
             },
             {
               "id": "python-task-ab0cd5fde096b350",

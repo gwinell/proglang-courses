@@ -135,7 +135,7 @@ def check_task_free(path: Path, markdown_cells: list[str], role: str | None) -> 
             fail(f"В материале осталась устаревшая инструкция к заданиям ({excerpt!r}): {path.relative_to(ROOT)}")
 
 
-def check_assignments(manifest: dict) -> None:
+def check_assignments(manifest: dict) -> tuple[int, Counter[str]]:
     try:
         assignments_data = json.loads(ASSIGNMENTS_PATH.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
@@ -234,6 +234,9 @@ def check_assignments(manifest: dict) -> None:
         "course_subtopics": sum(len(topic[2]) for topic in expected_topics),
         "source_notebooks": sum(1 for theme in manifest["themes"] for subtopic in theme["subtopics"] if subtopic["format"] == "ipynb"),
         "learner_markdown_sources": len({task["source_path"] for topic in topics for subtopic in topic["subtopics"] for task in subtopic["assignments"] if task["source_path"].endswith(".md")}),
+        "explicit_try_markers_found": 9,
+        "explicit_try_markers_covered": 7,
+        "explicit_try_prediction_experiments_excluded": 2,
     }
     for key, value in expected_counts.items():
         if counts.get(key) != value:
@@ -248,6 +251,90 @@ def check_assignments(manifest: dict) -> None:
         fail("Не все стандартные домашние задания покрыты экспортом.")
     if metadata.get("exceptions") != []:
         fail("Экспорт заданий содержит необработанные исключения; требуется ручная проверка.")
+
+    expected_try_exercises = [
+        ("python/03_collections/01_lists/lesson_05_lists.ipynb", "Создай список из четырёх любимых игр"),
+        ("python/04_functions_modules/lesson_07_functions_and_modules.ipynb", "Добавь в `show_menu()` ещё один пункт"),
+        ("python/04_functions_modules/lesson_07_functions_and_modules.ipynb", "Напиши `multiply(first, second)`"),
+        ("python/04_functions_modules/lesson_07_functions_and_modules.ipynb", "Добавь ветку `elif`"),
+        ("python/04_functions_modules/lesson_07_functions_and_modules.ipynb", "Измени условие на `number % 2 == 0`"),
+        ("python/04_functions_modules/lesson_07_functions_and_modules.ipynb", "Добавь ученика в список и ещё одно слово"),
+        ("python/05_oop/lesson_08_oop_basics.ipynb", "Добавь атрибут `level`"),
+    ]
+    for source_path, phrase in expected_try_exercises:
+        matching = [
+            task for topic in topics for subtopic in topic["subtopics"] for task in subtopic["assignments"]
+            if task["source_path"] == source_path and phrase in task["prompt"]
+        ]
+        if len(matching) != 1:
+            fail(f"Не найдено ровно одно экспортированное упражнение Попробуй {phrase!r}.")
+        notebook = json.loads((ROOT / source_path).read_text(encoding="utf-8"))
+        material = "\n".join(
+            "".join(cell.get("source", [])) if isinstance(cell.get("source"), list) else str(cell.get("source", ""))
+            for cell in notebook["cells"]
+        )
+        if phrase in material:
+            fail(f"Упражнение Попробуй осталось в материале после экспорта: {source_path}")
+
+    return total_assignments, assignment_kinds
+
+
+def check_post_extraction_cleanup() -> None:
+    remaining_try_markers: list[tuple[str, str]] = []
+    for path in sorted((ROOT / "python").rglob("*.ipynb")):
+        notebook = json.loads(path.read_text(encoding="utf-8"))
+        for cell in notebook["cells"]:
+            if cell.get("cell_type") != "markdown":
+                continue
+            source = "".join(cell.get("source", [])) if isinstance(cell.get("source"), list) else str(cell.get("source", ""))
+            for match in re.finditer(r"\*\*Попробуй\.?\*\*", source, re.I):
+                remaining_try_markers.append((path.relative_to(ROOT).as_posix(), source[match.end():].strip().split("\n", 1)[0]))
+    if len(remaining_try_markers) != 2 or any(
+        path != "python/03_collections/01_lists/lesson_06_lists_loops_comprehensions.ipynb"
+        for path, _ in remaining_try_markers
+    ):
+        fail(f"Остались неучтённые bold-блоки Попробуй: {remaining_try_markers!r}")
+
+    variables = json.loads((ROOT / "python/special/variables_print_input.ipynb").read_text(encoding="utf-8"))
+    code_cells = [
+        "".join(cell.get("source", [])) if isinstance(cell.get("source"), list) else str(cell.get("source", ""))
+        for cell in variables["cells"] if cell.get("cell_type") == "code"
+    ]
+    answer_fragments = (
+        'print("Я учусь Python!")',
+        'pet = "кот"',
+        "points = 2",
+        'print("я", "учу", "Python", sep=" -> ")',
+        'print("4" + "5")',
+        "a = 17",
+        'color = "синий"',
+        'number = int("6")',
+    )
+    for fragment in answer_fragments:
+        if any(fragment in code for code in code_cells):
+            fail(f"В variables_print_input остался code answer key: {fragment!r}")
+    for cell in variables["cells"]:
+        if cell.get("cell_type") != "markdown":
+            continue
+        source = "".join(cell.get("source", [])) if isinstance(cell.get("source"), list) else str(cell.get("source", ""))
+        if re.fullmatch(r"\s*### [BCDFGH]\s*", source) or source.startswith("### E\n") and '"4" + "5"' in source:
+            fail("В variables_print_input осталась подпись или текст answer key A–H.")
+    all_variable_text = "\n".join(code_cells + [
+        "".join(cell.get("source", [])) if isinstance(cell.get("source"), list) else str(cell.get("source", ""))
+        for cell in variables["cells"] if cell.get("cell_type") == "markdown"
+    ])
+    if "Удвоенное число" in all_variable_text or "number * 2" in all_variable_text:
+        fail("В variables_print_input остался пример, буквально решающий задание H.")
+
+    truthiness = (ROOT / "python/01_basics/03_truthiness/lesson_truthiness_and_conditions.ipynb").read_text(encoding="utf-8")
+    if "## 6. Предсказание и самостоятельная практика" in truthiness:
+        fail("В truthiness notebook остался пустой заголовок задания.")
+    lists = (ROOT / "python/03_collections/01_lists/lesson_06_lists_loops_comprehensions.ipynb").read_text(encoding="utf-8")
+    if "## Практика в классе\n\nДля каждой задачи сначала определи" in lists:
+        fail("В lesson_06_lists осталась осиротевшая вводная к удалённой практике.")
+    doodle = (ROOT / "python/04_pygame/03_doodle_jump/README.md").read_text(encoding="utf-8")
+    if "направления дальнейшей работы, а не функции, уже включённые в основной проект" not in doodle:
+        fail("В Doodle Jump guide потеряна оговорка о будущих функциях проекта.")
 
 
 def main() -> None:
@@ -314,9 +401,11 @@ def main() -> None:
     doodle = ROOT / "python/04_pygame/03_doodle_jump/README.md"
     if re.search(r"(?im)^\s*#{1,6}\s+.*самостоятельные\s+задания", doodle.read_text(encoding="utf-8")):
         fail("Из Doodle Jump README не вынесен раздел самостоятельных заданий.")
-    check_assignments(manifest)
+    assignment_count, assignment_kinds = check_assignments(manifest)
+    check_post_extraction_cleanup()
     notebooks = sum(1 for path in paths if path.endswith(".ipynb"))
-    print(f"OK: {len(theme_ids)} тем, {len(subtopic_ids)} подтем, {notebooks} notebook-файлов, {total_resources} локальных ссылок проверено ({total_cells} Markdown-ячеек).")
+    kinds = ", ".join(f"{kind}={assignment_kinds.get(kind, 0)}" for kind in ("code", "text", "quiz"))
+    print(f"OK: {len(theme_ids)} тем, {len(subtopic_ids)} подтем, {notebooks} notebook-файлов, {assignment_count} заданий ({kinds}), {total_resources} локальных ссылок проверено ({total_cells} Markdown-ячеек).")
 
 
 if __name__ == "__main__":
