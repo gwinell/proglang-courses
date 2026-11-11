@@ -1,0 +1,28 @@
+name: Verify CodeTogether Python course
+
+on:
+  push:
+    branches:
+      - codetogether/python-course
+  pull_request:
+    branches:
+      - codetogether/python-course
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-course:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out course source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Validate manifest, notebooks, links, and task extraction
+        run: python tools/check_codetogether_course.py
