@@ -184,6 +184,10 @@ def check_assignments(manifest: dict) -> tuple[int, Counter[str]]:
                         fail(f"Пустое или отсутствующее поле {field!r} у задания в подтеме {subtopic['id']!r}.")
                 if not task["prompt"].strip():
                     fail(f"Пустое условие у задания {task['id']!r}.")
+                if len(task["prompt"]) > 20000:
+                    fail(f"Условие задания слишком длинное: {task['id']!r}.")
+                if task["prompt"].count("**Задача.**") != 1 or task["prompt"].count("**Ожидаемый результат.**") != 1:
+                    fail(f"Условие должно содержать по одному разделу задачи и ожидаемого результата: {task['id']!r}.")
                 if task["id"] in assignment_ids:
                     fail(f"Повторяется id задания {task['id']!r}.")
                 if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", task["id"]):
