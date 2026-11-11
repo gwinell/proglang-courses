@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "course": {
+    "id": "python-course",
+    "title": "Python",
+    "description": "От первой программы до самостоятельных проектов. Теория, примеры и проектные инструкции собраны по темам; задания назначаются отдельно в codeTogether. Относительные ссылки на изображения и файлы разрешаются относительно исходного материала."
+  },
+  "source": {
+    "repository": "gwinell/proglang-courses",
+    "ref": "codetogether/python-course",
+    "root": "python"
+  },
+  "themes": [
+    {
+      "id": "python-basics",
+      "title": "Первые шаги и основы Python",
+      "subtopics": [
+        { "id": "notebooks-start", "title": "Как работать с блокнотами", "format": "md", "path": "python/00_start/README.md" },
+        { "id": "text-input-output", "title": "Текст, ввод и вывод", "format": "ipynb", "path": "python/01_basics/01_first_lesson/01_text_input_output.ipynb" },
+        { "id": "numbers-and-conditions", "title": "Числа и условия", "format": "ipynb", "path": "python/01_basics/02_numbers_and_conditions/02_numbers_and_conditions.ipynb" },
+        { "id": "truthiness-and-conditions", "title": "Истинность значений и логические операции", "format": "ipynb", "path": "python/01_basics/03_truthiness/lesson_truthiness_and_conditions.ipynb" },
+        { "id": "python-quick-reference", "title": "Краткий конспект Python", "format": "md", "path": "python/01_basics/konpekt_python.md" }
+      ]
+    },
+    {
+      "id": "loops",
+      "title": "Циклы и алгоритмы",
+      "subtopics": [
+        { "id": "for-step-by-step", "title": "Цикл for по шагам", "format": "ipynb", "path": "python/02_loops/01_for/03_for_loop_step_by_step.ipynb" },
+        { "id": "for-practice", "title": "Дополнительная практика с for", "format": "ipynb", "path": "python/02_loops/01_for/for_loop_theory_and_tasks.ipynb" },
+        { "id": "while-and-random", "title": "Цикл while и случайные значения", "format": "ipynb", "path": "python/02_loops/02_while/04_while_and_random.ipynb" },
+        { "id": "while-practice", "title": "Дополнительная практика с while", "format": "md", "path": "python/02_loops/02_while/while-tasks.md" },
+        { "id": "nested-loops", "title": "Вложенные циклы", "format": "ipynb", "path": "python/02_loops/03_nested_loops/lesson_nested_loops.ipynb" },
+        { "id": "algorithm-design", "title": "Практикумы по составлению алгоритмов", "format": "md", "path": "python/02_loops/03_nested_loops/algorithm_design_workshops.md" }
+      ]
+    },
+    {
+      "id": "collections-and-text",
+      "title": "Коллекции и текст",
+      "subtopics": [
+        { "id": "lists", "title": "Списки", "format": "ipynb", "path": "python/03_collections/01_lists/lesson_05_lists.ipynb" },
+        { "id": "lists-in-loops", "title": "Списки в циклах и включения", "format": "ipynb", "path": "python/03_collections/01_lists/lesson_06_lists_loops_comprehensions.ipynb" },
+        { "id": "string-methods", "title": "Методы строк", "format": "ipynb", "path": "python/03_collections/02_strings/lesson_strings_methods.ipynb" },
+        { "id": "tuples-dicts-sets", "title": "Кортежи, словари и множества", "format": "ipynb", "path": "python/03_collections/03_tuples_dicts_sets/lesson_tuples_dicts_sets.ipynb" },
+        { "id": "records-practice", "title": "Практикум по составным записям", "format": "ipynb", "path": "python/03_collections/03_tuples_dicts_sets/lesson_records_practice.ipynb" },
+        { "id": "iterators-generators", "title": "Итераторы и генераторы", "format": "ipynb", "path": "python/03_collections/04_iterators/lesson_iterators_generators.ipynb" },
+        { "id": "text-bytes-utf8", "title": "Текст, байты и UTF-8", "format": "ipynb", "path": "python/03_collections/05_text_bytes/lesson_text_bytes.ipynb" }
+      ]
+    },
+    {
+      "id": "functions-and-modules",
+      "title": "Функции и модули",
+      "subtopics": [
+        { "id": "functions-modules", "title": "Функции и модули", "format": "ipynb", "path": "python/04_functions_modules/lesson_07_functions_and_modules.ipynb" },
+        { "id": "function-arguments-scope", "title": "Аргументы и область видимости", "format": "ipynb", "path": "python/04_functions_modules/lesson_functions_arguments_scope.ipynb" },
+        { "id": "sorting-callbacks", "title": "Сортировка и функции-ключи", "format": "ipynb", "path": "python/04_functions_modules/lesson_sorting_and_callbacks.ipynb" }
+      ]
+    },
+    {
+      "id": "object-oriented-programming",
+      "title": "Объектно-ориентированное программирование",
+      "subtopics": [
+        { "id": "oop-basics", "title": "Классы и объекты", "format": "ipynb", "path": "python/05_oop/lesson_08_oop_basics.ipynb" },
+        { "id": "oop-composition-inheritance", "title": "Композиция и наследование", "format": "ipynb", "path": "python/05_oop/lesson_oop_composition_representation_inheritance.ipynb" }
+      ]
+    },
+    {
+      "id": "errors-and-debugging",
+      "title": "Ошибки и отладка",
+      "subtopics": [
+        { "id": "errors-debugging", "title": "Обработка ошибок и отладка", "format": "ipynb", "path": "python/06_errors_debugging/lesson_errors_debugging.ipynb" },
+        { "id": "pdb-debugger", "title": "Пошаговый отладчик pdb", "format": "md", "path": "python/06_errors_debugging/lesson_step_debugger.md" }
+      ]
+    },
+    {
+      "id": "files-and-data",
+      "title": "Файлы и данные",
+      "subtopics": [
+        { "id": "files-csv-json", "title": "Файлы, CSV и JSON", "format": "ipynb", "path": "python/07_files_data/lesson_files_csv_json.ipynb" }
+      ]
+    },
+    {
+      "id": "project-environment",
+      "title": "Структура проекта и инструменты",
+      "subtopics": [
+        { "id": "project-structure", "title": "Структура проекта и окружение", "format": "ipynb", "path": "python/08_project_environment/lesson_project_structure_environment.ipynb" },
+        { "id": "command-line-git", "title": "Командная строка и Git", "format": "md", "path": "python/08_project_environment/CLI_AND_GIT.md" }
+      ]
+    },
+    {
+      "id": "testing-and-quality",
+      "title": "Тестирование и качество кода",
+      "subtopics": [
+        { "id": "testing-quality", "title": "Тестирование и качество кода", "format": "ipynb", "path": "python/09_testing_quality/lesson_testing_quality.ipynb" }
+      ]
+    },
+    {
+      "id": "projects",
+      "title": "Проекты Python",
+      "subtopics": [
+        { "id": "projects-overview", "title": "Маршрут проектов", "format": "md", "role": "project_guide", "path": "python/projects/README.md" },
+        { "id": "project-basics", "title": "Проект: основы", "format": "md", "role": "project_guide", "path": "python/projects/01_basics.md" },
+        { "id": "project-loops-lists", "title": "Проект: циклы и списки", "format": "md", "role": "project_guide", "path": "python/projects/02_loops_lists.md" },
+        { "id": "project-strings-functions", "title": "Проект: строки и функции", "format": "md", "role": "project_guide", "path": "python/projects/03_strings_functions.md" },
+        { "id": "project-dictionaries", "title": "Проект: словари", "format": "md", "role": "project_guide", "path": "python/projects/04_dictionaries.md" },
+        { "id": "project-oop", "title": "Проект: ООП", "format": "md", "role": "project_guide", "path": "python/projects/05_oop.md" },
+        { "id": "project-files", "title": "Проект: файлы", "format": "md", "role": "project_guide", "path": "python/projects/06_files.md" }
+      ]
+    },
+    {
+      "id": "graphics-and-games",
+      "title": "Графика и игры",
+      "subtopics": [
+        { "id": "turtle", "title": "Графика Turtle", "format": "md", "path": "python/03_turtle/черепашка_и_основы_Python_5_класс.md" },
+        { "id": "dinosaur-game", "title": "Проект «Динозаврик»", "format": "md", "role": "project_guide", "path": "python/04_pygame/01_dinosaur/dinosaur_game_explanation.md" },
+        { "id": "chess-game", "title": "Проект «Шахматы»", "format": "md", "role": "project_guide", "path": "python/04_pygame/02_chess/chess_guide.md" },
+        { "id": "chess-pieces", "title": "Фигуры и правила шахмат", "format": "md", "role": "project_guide", "path": "python/04_pygame/02_chess/pieces_guide.md" },
+        { "id": "doodle-jump", "title": "Проект Doodle Jump", "format": "md", "role": "project_guide", "path": "python/04_pygame/03_doodle_jump/README.md" }
+      ]
+    },
+    {
+      "id": "additional-practice",
+      "title": "Дополнительные материалы и практика",
+      "subtopics": [
+        { "id": "special-overview", "title": "Обзор дополнительных материалов", "format": "md", "path": "python/special/README.md" },
+        { "id": "variables-print-input", "title": "Переменные, print и input", "format": "ipynb", "path": "python/special/variables_print_input.ipynb" },
+        { "id": "conditions-bool-if", "title": "Условия и логические значения", "format": "ipynb", "path": "python/special/conditions_bool_if.ipynb" },
+        { "id": "while-loop-conditions", "title": "while и условия", "format": "ipynb", "path": "python/special/while_loop_and_conditions.ipynb" },
+        { "id": "while-advanced-practice", "title": "Дополнительная практика while", "format": "ipynb", "path": "python/special/while_advanced_practice.ipynb" },
+        { "id": "while-break-continue-range", "title": "break, continue и range", "format": "ipynb", "path": "python/special/while_break_continue_for_range.ipynb" },
+        { "id": "mixed-lessons", "title": "Смешанные уроки", "format": "md", "path": "python/00_mixed_lessons/lesson.md" }
+      ]
+    }
+  ]
+}
