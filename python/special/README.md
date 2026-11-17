@@ -33,3 +33,9 @@
 [![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/codetogether/python-course/python/special/while_break_continue_for_range.ipynb)
 
 Подробный конспект о командах `break` и `continue` в цикле `while`, работе цикла `for`, трёх вариантах `range()` и условиях внутри `for`. Схемы показывают ход выполнения цикла и различие между `break` и `continue`. Явно обозначенные задания выдаются отдельно в codeTogether.
+
+## Строки в Python: индексы и срезы
+
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/codetogether/python-course/python/special/strings_indexes_slices.ipynb)
+
+Подробный конспект о строках, символах, положительных и отрицательных индексах, длине строки и срезах с границами и шагом. Есть разборы примеров, три схемы ImageGen и два блока терминов: простое объяснение и формулировки для колледжа. Домашних заданий нет.
