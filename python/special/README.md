@@ -39,3 +39,9 @@
 [![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/strings_indexes_slices.ipynb)
 
 Подробный конспект о строках, символах, положительных и отрицательных индексах, длине строки и срезах с границами и шагом, а также проходе по строке циклом через индексы `range()`. Есть разборы примеров, четыре схемы ImageGen и два блока терминов: простое объяснение и формулировки для колледжа. Домашних заданий нет.
+
+## Списки, циклы и генераторы
+
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/lists_loops_generators.ipynb)
+
+Подробный конспект о переборе списков циклом `for`, условиях, счётчиках, индексах, изменении элементов, создании новых списков и генераторах значений. Отдельно различаются включение списка, генераторное выражение и генераторная функция с `yield`. В конце приведены простые объяснения и формальные термины. Домашних заданий нет.
