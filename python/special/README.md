@@ -33,3 +33,21 @@
 [![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/codetogether/python-course/python/special/while_break_continue_for_range.ipynb)
 
 Подробный конспект о командах `break` и `continue` в цикле `while`, работе цикла `for`, трёх вариантах `range()` и условиях внутри `for`. Схемы показывают ход выполнения цикла и различие между `break` и `continue`. Явно обозначенные задания выдаются отдельно в codeTogether.
+
+## Строки в Python: индексы и срезы
+
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/strings_indexes_slices.ipynb)
+
+Подробный конспект о строках, символах, положительных и отрицательных индексах, длине строки и срезах с границами и шагом, а также проходе по строке циклом через индексы `range()`. Есть разборы примеров, четыре схемы ImageGen и два блока терминов: простое объяснение и формулировки для колледжа. Домашних заданий нет.
+
+## Списки, циклы и генераторы
+
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/lists_loops_generators.ipynb)
+
+Подробный конспект о переборе списков циклом `for`, условиях, счётчиках, индексах, изменении элементов, создании новых списков и генераторах значений. Отдельно различаются включение списка, генераторное выражение и генераторная функция с `yield`. В конце приведены простые объяснения и формальные термины. Домашних заданий нет.
+
+## Строки и списки в циклах
+
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/strings_lists_loops.ipynb)
+
+Конспект о проходе циклом по символам строки и элементам списка, использовании индексов через `range(len(...))`, условиях и различии между изменяемым списком и неизменяемой строкой. Схемы ImageGen показывают порядок обхода и отбор значений. В конце есть простые объяснения и точные термины. Домашних заданий нет.
