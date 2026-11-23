@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="620" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+<title id="title">Порядок работы цикла while</title><desc id="desc">Старт, проверка условия, выполнение тела при истинном условии, возврат к проверке; при ложном условии выход из цикла.</desc>
+<defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#36556f"/></marker></defs>
+<rect width="1000" height="620" rx="20" fill="#f7fafc"/>
+<text x="500" y="42" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#17324d">Как работает while</text>
+<rect x="390" y="76" width="220" height="64" rx="18" fill="#e4effa" stroke="#3977b8" stroke-width="3"/>
+<text x="500" y="116" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#17324d">Начало цикла</text>
+<path d="M500 140 V175" fill="none" stroke="#36556f" stroke-width="4" marker-end="url(#arrow)"/>
+<path d="M500 178 L650 265 L500 352 L350 265 Z" fill="#fff2cc" stroke="#c58c1c" stroke-width="3"/>
+<text x="500" y="258" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#4f3a08">Условие</text><text x="500" y="286" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#4f3a08">истинно?</text>
+<path d="M350 265 H175 V390" fill="none" stroke="#36556f" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="260" y="248" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#24734d">Да</text>
+<rect x="70" y="394" width="210" height="82" rx="16" fill="#e4f5ec" stroke="#379669" stroke-width="3"/>
+<text x="175" y="429" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#194d35">Выполнить</text><text x="175" y="456" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#194d35">тело цикла</text>
+<path d="M175 476 V520 H500 V356" fill="none" stroke="#36556f" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="320" y="509" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#36556f">затем проверить снова</text>
+<path d="M650 265 H825 V390" fill="none" stroke="#36556f" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="738" y="248" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#bd4a3e">Нет</text>
+<rect x="720" y="394" width="210" height="82" rx="16" fill="#fbe9e7" stroke="#c85a50" stroke-width="3"/>
+<text x="825" y="429" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#6a2d28">Выйти из цикла</text><text x="825" y="456" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#6a2d28">идти дальше</text>
+<text x="500" y="584" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#536579">Условие проверяется перед каждой новой итерацией</text>
+</svg>
