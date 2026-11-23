@@ -16,7 +16,7 @@
 
 ## Цикл `while`. Урок 1: основы и условия
 
-[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/codetogether/python-course/python/special/while_loop_and_conditions.ipynb)
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/while_loop_and_conditions.ipynb)
 
 Первый урок объясняет проверку условия, работу счётчика и `if/elif/else` внутри цикла. В нём нет тем, которые ещё не проходили. Явно обозначенные задания выдаются отдельно в codeTogether.
 
@@ -26,7 +26,7 @@
 
 Второй урок закрепляет те же конструкции на более сложных примерах. Новые команды не вводятся. Явно обозначенные задания выдаются отдельно в codeTogether.
 
-Схемы к первому уроку — блок-схемы переходов. Они показывают проверку условия, повтор тела цикла, обработку числа условием и выход из цикла.
+К первому уроку добавлены три наглядные схемы ImageGen: повторение цикла, изменение счётчика на каждом шаге и выбор ветки `if` для введённых чисел.
 
 ## Дополнительный урок: `break`, `continue`, `for` и `range()`
 
