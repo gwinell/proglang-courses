@@ -23,22 +23,22 @@
       "Examples, demos, mini-experiments, unmarked predict-the-output prompts, and unmarked self-check questions"
     ],
     "counts": {
-      "assignments": 371,
+      "assignments": 376,
       "by_kind": {
-        "code": 366,
+        "code": 371,
         "text": 5,
         "quiz": 0
       },
       "by_source_type": {
         "notebook_inline": 50,
         "notebook_heading": 270,
-        "markdown_heading": 51
+        "markdown_heading": 56
       },
-      "subtopics_with_assignments": 36,
+      "subtopics_with_assignments": 37,
       "course_themes": 12,
-      "course_subtopics": 48,
-      "source_notebooks": 28,
-      "learner_markdown_sources": 8,
+      "course_subtopics": 49,
+      "source_notebooks": 29,
+      "learner_markdown_sources": 9,
       "standardized_homework_markers_found": 167,
       "standardized_homework_markers_covered": 167,
       "explicit_try_markers_found": 9,
@@ -4496,6 +4496,63 @@
               "source_start": 0,
               "source_end": 752,
               "solution_cell_index": 33
+            }
+          ]
+        },
+        {
+          "id": "strings-lists-loops",
+          "path": "python/special/strings_lists_loops.ipynb",
+          "title": "Строки и списки в циклах",
+          "assignments": [
+            {
+              "id": "strings-lists-loops-task-1",
+              "title": "Напечатай символы строки по одному",
+              "kind": "code",
+              "prompt": "**Задача.** Дана строка:\n\n```python\nword = \"КОТ\"\n```\n\nНапиши цикл, который проходит по строке слева направо. На каждом повторе напечатай один текущий символ. Каждый символ должен оказаться на отдельной строке. Вводить данные не нужно.\n\n**Подсказка.** Перебирай символы строки непосредственно. Переменную цикла назови, например, `letter`.\n\n**Ожидаемый результат.** На экране напечатаны три строки:\n\n```text\nК\nО\nТ\n```",
+              "source_path": "python/special/strings_lists_loops_tasks.md",
+              "source_type": "markdown_heading",
+              "start_line": 17,
+              "end_line": 45
+            },
+            {
+              "id": "strings-lists-loops-task-2",
+              "title": "Выведи элементы списка с пояснением",
+              "kind": "code",
+              "prompt": "**Задача.** Дан список животных:\n\n```python\nanimals = [\"кот\", \"пёс\", \"ёж\"]\n```\n\nЗапиши создание этого списка в начале решения. Пройди циклом по списку. Для каждого животного выведи отдельную строку: слово `Животное:` и название животного через пробел. Вводить данные не нужно.\n\n**Подсказка.** На каждом повторе переменная цикла хранит одно животное. Передай пояснение и текущее значение в `print()`.\n\n**Ожидаемый результат.** На экране напечатаны три строки:\n\n```text\nЖивотное: кот\nЖивотное: пёс\nЖивотное: ёж\n```",
+              "source_path": "python/special/strings_lists_loops_tasks.md",
+              "source_type": "markdown_heading",
+              "start_line": 47,
+              "end_line": 75
+            },
+            {
+              "id": "strings-lists-loops-task-3",
+              "title": "Покажи индекс и символ",
+              "kind": "code",
+              "prompt": "**Задача.** Дана строка:\n\n```python\nword = \"ЛИСА\"\n```\n\nПройди по индексам строки с помощью `range()` и `len()`. Для каждой позиции напечатай сначала индекс, затем символ на этой позиции. Между индексом и символом должен быть один пробел. Например, для индекса `0` нужно получить первый символ строки. Вводить данные не нужно.\n\n**Подсказка.** `range(len(word))` создаёт индексы существующих символов. Текущий символ можно получить так: `word[index]`.\n\n**Ожидаемый результат.** На экране напечатаны четыре строки:\n\n```text\n0 Л\n1 И\n2 С\n3 А\n```",
+              "source_path": "python/special/strings_lists_loops_tasks.md",
+              "source_type": "markdown_heading",
+              "start_line": 77,
+              "end_line": 108
+            },
+            {
+              "id": "strings-lists-loops-task-4",
+              "title": "Собери строку только из гласных",
+              "kind": "code",
+              "prompt": "**Задача.** Дана строка:\n\n```python\nword = \"КОТИК\"\n```\n\nСоздай пустую строку для результата. Пройди циклом по буквам исходного слова. Если текущая буква — `О` или `И`, добавь её в строку результата. Отдельную переменную-счётчик начни со значения `0` и увеличивай на один, когда найдёшь подходящую букву. В конце выведи новую строку и количество найденных букв. Исходное слово не меняй, клавиатурный ввод не нужен.\n\n**Подсказка.** Сначала создай строку результата и счётчик. Добавляй букву и увеличивай счётчик только внутри условия. Итоговые значения напечатай после цикла.\n\n**Ожидаемый результат.** На экране напечатаны две строки:\n\n```text\nГласные: ОИ\nКоличество: 2\n```",
+              "source_path": "python/special/strings_lists_loops_tasks.md",
+              "source_type": "markdown_heading",
+              "start_line": 110,
+              "end_line": 143
+            },
+            {
+              "id": "strings-lists-loops-task-5",
+              "title": "Отбери длинные слова и покажи их номера",
+              "kind": "code",
+              "prompt": "**Задача.** Дан список слов:\n\n```python\nwords = [\"кот\", \"тигр\", \"ёж\", \"слон\", \"лиса\"]\n```\n\nСоздай пустой список для результата. Пройди по исходному списку и добавь в новый список только те слова, в которых четыре или больше символов. После отбора пройди по новому списку с помощью `range()` и `len()`. Напечатай сначала количество отобранных слов, а затем каждое слово с его индексом. Исходный список оставь без изменений. Вводить данные не нужно.\n\n**Подсказки.** Для длины слова используй `len(word)`. Добавляй подходящие слова в новый список с помощью `append()`. После фильтрации в списке три слова с индексами `0`, `1` и `2`; второй цикл должен использовать `range(len(новый_список))`.\n\n**Ожидаемый результат.** На экране напечатаны четыре строки:\n\n```text\nВсего слов: 3\n0 тигр\n1 слон\n2 лиса\n```",
+              "source_path": "python/special/strings_lists_loops_tasks.md",
+              "source_type": "markdown_heading",
+              "start_line": 144,
+              "end_line": 178
             }
           ]
         },

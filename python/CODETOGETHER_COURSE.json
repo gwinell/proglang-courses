@@ -128,6 +128,7 @@
         { "id": "while-loop-conditions", "title": "while и условия", "format": "ipynb", "path": "python/special/while_loop_and_conditions.ipynb" },
         { "id": "while-advanced-practice", "title": "Дополнительная практика while", "format": "ipynb", "path": "python/special/while_advanced_practice.ipynb" },
         { "id": "while-break-continue-range", "title": "break, continue и range", "format": "ipynb", "path": "python/special/while_break_continue_for_range.ipynb" },
+        { "id": "strings-lists-loops", "title": "Строки и списки в циклах", "format": "ipynb", "path": "python/special/strings_lists_loops.ipynb" },
         { "id": "mixed-lessons", "title": "Смешанные уроки", "format": "md", "path": "python/00_mixed_lessons/lesson.md" }
       ]
     }
