@@ -45,3 +45,9 @@
 [![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/lists_loops_generators.ipynb)
 
 Подробный конспект о переборе списков циклом `for`, условиях, счётчиках, индексах, изменении элементов, создании новых списков и генераторах значений. Отдельно различаются включение списка, генераторное выражение и генераторная функция с `yield`. В конце приведены простые объяснения и формальные термины. Домашних заданий нет.
+
+## Строки и списки в циклах
+
+[![Открыть блокнот в Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gwinell/proglang-courses/blob/main/python/special/strings_lists_loops.ipynb)
+
+Конспект о проходе циклом по символам строки и элементам списка, использовании индексов через `range(len(...))`, условиях и различии между изменяемым списком и неизменяемой строкой. Схемы ImageGen показывают порядок обхода и отбор значений. В конце есть простые объяснения и точные термины. Домашних заданий нет.
